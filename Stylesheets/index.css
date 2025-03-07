@@ -26,13 +26,13 @@ main {
     padding: 20px;
 }
 
-.login-form, .signup-form, .home, #profile-section {
+.home {
     max-width: 400px;
     margin: 0 auto;
     margin-top: 20px;
 }
 
-button, input[type=text], input[type=password], textarea {
+button, textarea {
     margin: 10px 0;
     padding: 10px;
     width: 100%;
@@ -46,7 +46,6 @@ button, input[type=text], input[type=password], textarea {
 }
 
 textarea {
-    width: 100%;
     height: 60px;
     margin-bottom: 10px;
 }
