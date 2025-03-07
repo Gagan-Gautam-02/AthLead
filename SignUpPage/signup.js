@@ -20,11 +20,14 @@ const auth = getAuth(app);
 
 // Event listener for the signup button
 document.getElementById('signup-btn').addEventListener('click', async () => {
+    const name = document.getElementById('signup-name').value.trim();
+    const age = document.getElementById('signup-age').value;
+    const gender = document.getElementById('signup-gender').value;
+    const sport = document.getElementById('signup-sport').value.trim();
     const email = document.getElementById('signup-email').value.trim();
     const password = document.getElementById('signup-password').value.trim();
-    const name = document.getElementById('signup-name').value.trim();
 
-    if (email && password && name) {
+    if (name && age && gender && sport && email && password) {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -37,6 +40,9 @@ document.getElementById('signup-btn').addEventListener('click', async () => {
             await addDoc(collection(db, "users"), {
                 uid: user.uid,
                 name: name,
+                age: age,
+                gender: gender,
+                sport: sport,
                 email: email,
             });
 

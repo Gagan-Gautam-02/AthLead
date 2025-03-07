@@ -32,6 +32,9 @@ onAuthStateChanged(auth, async (user) => {
                     document.getElementById('profile-info').innerHTML = `
                         <p><strong>Name:</strong> ${profileData.name}</p>
                         <p><strong>Email:</strong> ${profileData.email}</p>
+                        <p><strong>Age:</strong> ${profileData.age}</p>
+                        <p><strong>Gender:</strong> ${profileData.gender}</p>
+                        <p><strong>Favorite Sport:</strong> ${profileData.sport}</p>
                     `;
                 });
             } else {
