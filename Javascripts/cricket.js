@@ -1,32 +1,34 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "your-app.firebaseapp.com",
-  projectId: "your-app",
-  storageBucket: "your-app.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDuqeDjqajIdt2C0rCyMEzWQn10aYVLsKM",
+  authDomain: "atkin-4967a.firebaseapp.com",
+  databaseURL: "https://atkin-4967a-default-rtdb.firebaseio.com",
+  projectId: "atkin-4967a",
+  storageBucket: "atkin-4967a.appspot.com",
+  messagingSenderId: "120569115968",
+  appId: "1:120569115968:web:8a389038e29364d8d136a5",
+  measurementId: "G-SB910YHPCB"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Fetch and display cricket stats
-async function fetchCricketStats() {
-    const statsRef = collection(db, "cricketStats");
-    const statsSnapshot = await getDocs(statsRef);
-    const statsList = statsSnapshot.docs.map(doc => doc.data());
+// Fetch and display cricket players' stats
+async function fetchCricketPlayers() {
+    const q = query(collection(db, "users"), where("sport", "==", "Cricket"));
+    const querySnapshot = await getDocs(q);
 
     const statsSection = document.getElementById('stats-section');
-    statsList.forEach((stat) => {
+    querySnapshot.forEach((doc) => {
+        const userData = doc.data();
         const p = document.createElement('p');
-        p.textContent = `Player: ${stat.player}, Runs: ${stat.runs}, Matches: ${stat.matches}`;
+        p.textContent = `Name: ${userData.name}, Age: ${userData.age}, Email: ${userData.email}`;
         statsSection.appendChild(p);
     });
 }
 
-fetchCricketStats();
+fetchCricketPlayers();
