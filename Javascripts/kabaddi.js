@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Ensure user-specific data fetch and UI update
+// Fetch kabaddi-related data and create blocks
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     try {
@@ -29,10 +29,14 @@ onAuthStateChanged(auth, async (user) => {
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         statsSection.innerHTML = `
-          <p>Name: ${userData.name}</p>
-          <p>Age: ${userData.age}</p>
-          <p>Email: ${userData.email}</p>
-          <p>Favorite Sport: ${userData.sport}</p>
+          <div class="stat-block">
+            <p><strong>Name:</strong> ${userData.name}</p>
+            <p><strong>Age:</strong> ${userData.age}</p>
+          </div>
+          <div class="stat-block">
+            <p><strong>Email:</strong> ${userData.email}</p>
+            <p><strong>Favorite Sport:</strong> ${userData.sport}</p>
+          </div>
         `;
       } else {
         statsSection.innerHTML = "<p>No kabaddi stats available for the current user.</p>";
