@@ -49,8 +49,8 @@ document.getElementById('performance-button').addEventListener('click', async ()
       const favoriteSport = userData.sport;
       if (favoriteSport === "Cricket") {
         window.location.href = '/Html/cricket.html';
-      } else if (favoriteSport === "/Html/Kabaddi") {
-        window.location.href = 'kabaddi.html';
+      } else if (favoriteSport === "Kabaddi") {
+        window.location.href = '/Html/kabaddi.html';
       } else {
         console.error("Unknown sport selected");
       }
