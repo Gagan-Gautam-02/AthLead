@@ -19,7 +19,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Fetch kabaddi-related data and create blocks
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     try {
@@ -30,12 +29,28 @@ onAuthStateChanged(auth, async (user) => {
         const userData = querySnapshot.docs[0].data();
         statsSection.innerHTML = `
           <div class="stat-block">
-            <p><strong>Name:</strong> ${userData.name}</p>
-            <p><strong>Age:</strong> ${userData.age}</p>
+            <h3>Total Matches</h3>
+            <p>${userData.totalMatches || 0}</p>
           </div>
           <div class="stat-block">
-            <p><strong>Email:</strong> ${userData.email}</p>
-            <p><strong>Favorite Sport:</strong> ${userData.sport}</p>
+            <h3>Total Points</h3>
+            <p>${userData.totalPoints || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Best Match Performance</h3>
+            <p>${userData.bestPerformance || "N/A"}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Most Raids</h3>
+            <p>${userData.mostRaids || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Tackles Completed</h3>
+            <p>${userData.tacklesCompleted || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Super Tackles</h3>
+            <p>${userData.superTackles || 0}</p>
           </div>
         `;
       } else {
@@ -46,6 +61,6 @@ onAuthStateChanged(auth, async (user) => {
     }
   } else {
     alert("You need to log in to view this page.");
-    window.location.href = "login.html";
+    window.location.href = "/LoginPage/login.html";
   }
 });

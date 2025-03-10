@@ -19,7 +19,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Fetch cricket-related data and create blocks
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     try {
@@ -30,12 +29,28 @@ onAuthStateChanged(auth, async (user) => {
         const userData = querySnapshot.docs[0].data();
         statsSection.innerHTML = `
           <div class="stat-block">
-            <p><strong>Name:</strong> ${userData.name}</p>
-            <p><strong>Age:</strong> ${userData.age}</p>
+            <h3>Total Matches</h3>
+            <p>${userData.totalMatches || 0}</p>
           </div>
           <div class="stat-block">
-            <p><strong>Email:</strong> ${userData.email}</p>
-            <p><strong>Favorite Sport:</strong> ${userData.sport}</p>
+            <h3>Total Wins</h3>
+            <p>${userData.totalWins || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Average</h3>
+            <p>${userData.average || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Highest Score</h3>
+            <p>${userData.highestScore || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Centuries</h3>
+            <p>${userData.centuries || 0}</p>
+          </div>
+          <div class="stat-block">
+            <h3>Half-Centuries</h3>
+            <p>${userData.halfCenturies || 0}</p>
           </div>
         `;
       } else {
@@ -46,6 +61,6 @@ onAuthStateChanged(auth, async (user) => {
     }
   } else {
     alert("You need to log in to view this page.");
-    window.location.href = "login.html";
+    window.location.href = "/LoginPage/login.html";
   }
 });

@@ -32,7 +32,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 document.getElementById('profile-button').addEventListener('click', () => {
-  window.location.href = 'profile.html';
+  window.location.href = '/Html/profile.html';
 });
 
 document.getElementById('performance-button').addEventListener('click', async () => {
@@ -48,15 +48,43 @@ document.getElementById('performance-button').addEventListener('click', async ()
       const userData = querySnapshot.docs[0].data();
       const favoriteSport = userData.sport;
       if (favoriteSport === "Cricket") {
-          window.location.href = 'cricket.html';
-      } else if (favoriteSport === "Kabaddi") {
-          window.location.href = 'kabaddi.html';
+        window.location.href = '/Html/cricket.html';
+      } else if (favoriteSport === "/Html/Kabaddi") {
+        window.location.href = 'kabaddi.html';
       } else {
-          console.error("Unknown sport selected");
+        console.error("Unknown sport selected");
       }
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
+  }
+});
+
+// Implement search functionality
+document.getElementById('search-btn').addEventListener('click', async () => {
+  const searchInput = document.getElementById('search-input').value.trim();
+  const resultsContainer = document.getElementById('search-results');
+
+  if (searchInput) {
+    const searchQuery = query(collection(db, "users"), where("name", "==", searchInput));
+    try {
+      const querySnapshot = await getDocs(searchQuery);
+      resultsContainer.innerHTML = `<h3>Search Results</h3>`;
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          const resultItem = document.createElement('p');
+          resultItem.textContent = `Name: ${data.name}, Email: ${data.email}, Sport: ${data.sport}`;
+          resultsContainer.appendChild(resultItem);
+        });
+      } else {
+        resultsContainer.innerHTML += `<p>No athletes found with the name "${searchInput}".</p>`;
+      }
+    } catch (error) {
+      console.error("Error searching for athletes:", error);
+    }
+  } else {
+    alert("Please enter a name to search.");
   }
 });
 
