@@ -47,6 +47,6 @@ onAuthStateChanged(auth, async (user) => {
     } else {
         // No user is signed in, redirect to login page
         alert("You need to log in to view your profile.");
-        window.location.href = "/LoginPage/login.html";
+        window.location.href = "/LoginPage/-athletelogin.html";
     }
 });

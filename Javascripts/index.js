@@ -31,6 +31,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+// Event listeners for navigation
 document.getElementById('profile-button').addEventListener('click', () => {
   window.location.href = '/Html/profile.html';
 });
@@ -58,6 +59,23 @@ document.getElementById('performance-button').addEventListener('click', async ()
   } catch (error) {
     console.error("Error fetching user data:", error);
   }
+});
+
+// Redirect to respective signup/login pages
+document.getElementById('athlete-signup-button').addEventListener('click', () => {
+  window.location.href = 'athlete-signup.html';
+});
+
+document.getElementById('athlete-login-button').addEventListener('click', () => {
+  window.location.href = 'athlete-login.html';
+});
+
+document.getElementById('coach-signup-button').addEventListener('click', () => {
+  window.location.href = 'coach-signup.html';
+});
+
+document.getElementById('coach-login-button').addEventListener('click', () => {
+  window.location.href = 'coach-login.html';
 });
 
 // Implement search functionality

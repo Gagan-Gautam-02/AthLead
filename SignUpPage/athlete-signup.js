@@ -48,7 +48,7 @@ document.getElementById('signup-btn').addEventListener('click', async () => {
 
             console.log('User signed up:', user.email);
             alert('Signup successful! Please log in.');
-            window.location.href = '/LoginPage/login.html'; // Redirect to login
+            window.location.href = '/LoginPage/athlete-login.html'; // Redirect to login
         } catch (error) {
             console.error('Error signing up:', error.message);
             alert('Signup failed: ' + error.message);

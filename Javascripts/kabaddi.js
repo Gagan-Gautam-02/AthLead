@@ -61,6 +61,6 @@ onAuthStateChanged(auth, async (user) => {
     }
   } else {
     alert("You need to log in to view this page.");
-    window.location.href = "/LoginPage/login.html";
+    window.location.href = "/LoginPage/athlete-login.html";
   }
 });
