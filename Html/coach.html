@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Dashboard</title>
+    <link rel="stylesheet" href="/Stylesheets/coach.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Coach Dashboard</h1>
+        <button onclick="window.location.href='index.html'">Back to Home</button>
+    </header>
+
+    <main>
+        <section class="search">
+            <h2>Search Athlete</h2>
+            <input type="text" id="search-athlete-input" placeholder="Enter athlete's name">
+            <button id="search-athlete-btn">Search Athlete</button>
+            <div class="search-athlete-results" id="search-athlete-results">
+                <h3>Search Results</h3>
+                <!-- Athlete search results will be displayed here -->
+            </div>
+        </section>
+        
+        <section class="update-stats" id="update-stats-section" style="display: none;">
+            <h2>Update Athlete Performance</h2>
+            <form id="update-stats-form">
+                <input type="number" id="update-total-matches" placeholder="Total Matches">
+                <input type="number" id="update-total-wins" placeholder="Total Wins">
+                <input type="number" id="update-average" placeholder="Average">
+                <input type="number" id="update-highest-score" placeholder="Highest Score">
+                <input type="number" id="update-centuries" placeholder="Centuries">
+                <input type="number" id="update-half-centuries" placeholder="Half-Centuries">
+                <button type="submit" id="update-stats-btn">Update Stats</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="/Javascripts/coach.js" type="module"></script>
+</body>
+</html>
