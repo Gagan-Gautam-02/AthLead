@@ -3,33 +3,34 @@ import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/fir
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDuqeDjqajIdt2C0rCyMEzWQn10aYVLsKM",
-  authDomain: "atkin-4967a.firebaseapp.com",
-  projectId: "atkin-4967a",
-  storageBucket: "atkin-4967a.appspot.com",
-  messagingSenderId: "120569115968",
-  appId: "1:120569115968:web:8a389038e29364d8d136a5",
-  measurementId: "G-SB910YHPCB"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "your-app.firebaseapp.com",
+  projectId: "your-app",
+  storageBucket: "your-app.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Event listener for the login button
-document.getElementById('login-btn').addEventListener('click', async () => {
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
+// Event listener for login form submission
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+
     if (email && password) {
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            console.log('User logged in:');
-            window.location.href = '/Html/index.html'; // Redirect to the main page
+            alert('Login successful!');
+            window.location.href = 'Html/coach.html'; // Redirect after successful login
         } catch (error) {
-            console.error('Error logging in:', error.message);
+            console.error('Error during login:', error.message);
             alert('Login failed: ' + error.message);
         }
     } else {
-        alert('Please provide both email and password.');
+        alert('Please enter both email and password.');
     }
 });

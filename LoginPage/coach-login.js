@@ -27,7 +27,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             alert('Login successful!');
-            window.location.href = '/Html/index.html';
+            window.location.href = 'Html/coach.html';
         } catch (error) {
             console.error('Error during login:', error.message);
             alert('Login failed: ' + error.message);

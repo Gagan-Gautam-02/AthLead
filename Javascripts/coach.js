@@ -4,14 +4,12 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDuqeDjqajIdt2C0rCyMEzWQn10aYVLsKM",
-  authDomain: "atkin-4967a.firebaseapp.com",
-  databaseURL: "https://atkin-4967a-default-rtdb.firebaseio.com",
-  projectId: "atkin-4967a",
-  storageBucket: "atkin-4967a.appspot.com",
-  messagingSenderId: "120569115968",
-  appId: "1:120569115968:web:8a389038e29364d8d136a5",
-  measurementId: "G-SB910YHPCB"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "your-app.firebaseapp.com",
+  projectId: "your-app",
+  storageBucket: "your-app.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
@@ -24,9 +22,28 @@ let selectedAthleteDocId = null;
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         console.log("Coach is signed in:", user.email);
+
+        // Fetch coach profile
+        try {
+            const q = query(collection(db, "users"), where("uid", "==", user.uid), where("role", "==", "coach"));
+            const querySnapshot = await getDocs(q);
+            const profileContainer = document.getElementById('coach-profile');
+            if (!querySnapshot.empty) {
+                querySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    profileContainer.innerHTML = `
+                        <p>Name: ${data.name}</p>
+                        <p>Email: ${data.email}</p>
+                        <p>Experience: ${data.experience} years</p>
+                    `;
+                });
+            }
+        } catch (error) {
+            console.error("Error fetching coach profile:", error);
+        }
     } else {
         alert("No user is signed in. Redirecting to login.");
-        window.location.href = "LoginPage/coach-login.css";
+        window.location.href = "LoginPage/coach-login.html";
     }
 });
 
