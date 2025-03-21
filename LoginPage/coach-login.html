@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coach Login</title>
-    <link rel="stylesheet" href="/LoginPage/coach-login.css">
+    <link rel="stylesheet" href="coach-login.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </head>
 <body>
     <main>
@@ -15,9 +16,9 @@
             <input type="email" id="login-email" placeholder="Email" required>
             <input type="password" id="login-password" placeholder="Password" required>
             <button type="submit" id="login-btn">Login</button>
-            <p>Don't have an account? <a href="/SignUpPage/athlete-signup.html">Athlete Signup</a> | <a href="/SignUpPage/coach-signup.html">Coach Signup</a></p>
+            <p>Don't have an account? <a href="SignUpPage/coach-signup.html">Signup here</a>.</p>
         </form>
     </main>
-    <script src="/LoginPage/coach-login.js" type="module"></script>
+    <script src="coach-login.js" type="module"></script>
 </body>
 </html>

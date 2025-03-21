@@ -2,14 +2,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-// Firebase configuration
+// Firebase configuration with your specific API details
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "your-app.firebaseapp.com",
-  projectId: "your-app",
-  storageBucket: "your-app.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDuqeDjqajIdt2C0rCyMEzWQn10aYVLsKM",
+  authDomain: "atkin-4967a.firebaseapp.com",
+  projectId: "atkin-4967a",
+  storageBucket: "atkin-4967a.appspot.com",
+  messagingSenderId: "120569115968",
+  appId: "1:120569115968:web:8a389038e29364d8d136a5"
 };
 
 // Initialize Firebase
@@ -44,7 +44,7 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
             });
 
             alert('Signup successful!');
-            window.location.href = 'Html/coach.html'; // Redirect after successful signup
+            window.location.href = '/LoginPage/coach-login.html'; // Redirect to coach dashboard
         } catch (error) {
             console.error('Error during signup:', error.message);
             alert('Signup failed: ' + error.message);

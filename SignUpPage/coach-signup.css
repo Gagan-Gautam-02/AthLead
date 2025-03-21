@@ -28,8 +28,8 @@ h2 {
 }
 
 input[type=text],
-input[type=password],
 input[type=email],
+input[type=password],
 input[type=number],
 button {
     margin-top: 10px;

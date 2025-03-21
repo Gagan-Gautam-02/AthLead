@@ -6,6 +6,7 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://
 const firebaseConfig = {
   apiKey: "AIzaSyDuqeDjqajIdt2C0rCyMEzWQn10aYVLsKM",
   authDomain: "atkin-4967a.firebaseapp.com",
+  databaseURL: "https://atkin-4967a-default-rtdb.firebaseio.com",
   projectId: "atkin-4967a",
   storageBucket: "atkin-4967a.appspot.com",
   messagingSenderId: "120569115968",
@@ -18,16 +19,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Event listener for the signup button
-document.getElementById('signup-btn').addEventListener('click', async () => {
+// Event listener for signup form submission
+document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
     const name = document.getElementById('signup-name').value.trim();
-    const age = document.getElementById('signup-age').value;
-    const gender = document.getElementById('signup-gender').value;
-    const sport = document.getElementById('signup-sport').value.trim();
     const email = document.getElementById('signup-email').value.trim();
     const password = document.getElementById('signup-password').value.trim();
+    const age = parseInt(document.getElementById('signup-age').value, 10);
+    const sport = document.getElementById('signup-sport').value;
 
-    if (name && age && gender && sport && email && password) {
+    if (name && email && password && age && sport) {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -36,21 +37,20 @@ document.getElementById('signup-btn').addEventListener('click', async () => {
                 displayName: name
             });
 
-            // Store user info in Firestore
+            // Store athlete info in Firestore
             await addDoc(collection(db, "users"), {
                 uid: user.uid,
                 name: name,
-                age: age,
-                gender: gender,
-                sport: sport,
                 email: email,
+                age: age,
+                sport: sport,
+                role: "athlete"
             });
 
-            console.log('User signed up:', user.email);
-            alert('Signup successful! Please log in.');
-            window.location.href = '/LoginPage/athlete-login.html'; // Redirect to login
+            alert('Signup successful!');
+            window.location.href = 'Html/index.html'; // Redirect to index or dashboard
         } catch (error) {
-            console.error('Error signing up:', error.message);
+            console.error('Error during signup:', error.message);
             alert('Signup failed: ' + error.message);
         }
     } else {
