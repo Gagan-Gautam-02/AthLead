@@ -16,7 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
+const auth = getAuth(app);a
 
 // Ensure user is authenticated and fetch user profile information
 onAuthStateChanged(auth, async (user) => {
