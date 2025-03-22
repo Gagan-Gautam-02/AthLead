@@ -36,6 +36,7 @@ onAuthStateChanged(auth, async (user) => {
                     profileContainer.innerHTML = `
                         <p>Name: ${data.name}</p>
                         <p>Email: ${data.email}</p>
+                        <p>Sports: ${data.sport}
                         <p>Experience: ${data.experience} years</p>
                     `;
                 });

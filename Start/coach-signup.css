@@ -31,6 +31,7 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=number],
+input[type=sport],
 button {
     margin-top: 10px;
     padding: 10px;

@@ -23,6 +23,7 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
     const name = document.getElementById('signup-name').value.trim();
     const email = document.getElementById('signup-email').value.trim();
     const password = document.getElementById('signup-password').value.trim();
+    const sport = document.getElementById('signup-sport').value.trim();
     const experience = parseInt(document.getElementById('signup-experience').value, 10);
 
     if (name && email && password && experience) {
@@ -39,12 +40,13 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
                 uid: user.uid,
                 name: name,
                 email: email,
+                sport: sport,
                 experience: experience,
                 role: "coach"
             });
 
             alert('Signup successful!');
-            window.location.href = '/LoginPage/coach-login.html'; // Redirect to coach dashboard
+            window.location.href = 'Html/coach.html'; // Redirect to coach dashboard
         } catch (error) {
             console.error('Error during signup:', error.message);
             alert('Signup failed: ' + error.message);
