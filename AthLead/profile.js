@@ -7,32 +7,37 @@ const firebaseConfig = {
     appId: "1:120569115968:web:8a389038e29364d8d136a5"
 };
 
-// Initialize Firebase if not already initialized
+// Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
-const authProfile = firebase.auth();
-const dbProfile = firebase.firestore();
 
-authProfile.onAuthStateChanged((user) => {
-    if (user) {
-        const userRef = dbProfile.collection('users').doc(user.uid);
-        userRef.get().then((doc) => {
-            if (doc.exists) {
-                const profileDetails = document.getElementById('profile-details');
-                const data = doc.data();
-                profileDetails.innerHTML = `
-                    <p>Name: ${data.name}</p>
-                    <p>Age: ${data.age}</p>
-                    <p>Email: ${data.email}</p>
-                `;
-            } else {
-                profileDetails.innerHTML = `<p>No user data found.</p>`;
-            }
-        }).catch((error) => {
-            console.error('Error retrieving user data:', error);
-        });
-    } else {
-        window.location = 'login.html';  // Redirect to login if not authenticated
-    }
-});
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const signupForm = document.getElementById('signup-form');
+if (signupForm) {
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = signupForm['name'].value;
+        const age = signupForm['age'].value;
+        const email = signupForm['email'].value;
+        const password = signupForm['password'].value;
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                return db.collection('users').doc(userCredential.user.uid).set({
+                    name: name,
+                    age: age,
+                    email: email
+                });
+            })
+            .then(() => {
+                console.log('User signed up and data stored.');
+                window.location = 'profile.html'; // Redirect to profile
+            })
+            .catch((error) => {
+                console.error('Error during sign up:', error);
+            });
+    });
+}

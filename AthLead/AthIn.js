@@ -7,6 +7,7 @@ const firebaseConfig = {
     appId: "1:120569115968:web:8a389038e29364d8d136a5"
 };
 
+
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -17,28 +18,88 @@ const db = firebase.firestore();
 
 auth.onAuthStateChanged((user) => {
     if (user) {
-        console.log('User is logged in:', user);
+        console.log('User is logged in:', user.uid);
 
-        // Populate homepage or profile page data
-        const userId = user.uid;
-        const userRef = db.collection('users').doc(userId);
+        // Setup post submission
+        setupPostSubmission(user);
 
-        userRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log('User data:', doc.data());
-                // Use user data to personalize UI, optionally
-            } else {
-                console.log('No such document!');
-            }
-        }).catch((error) => {
-            console.error('Error getting document:', error);
+        // Load existing feed
+        loadFeed();
+
+        // Setup search functionality
+        setupSearch();
+
+    } else {
+        console.log('User not authenticated, redirecting to login.');
+        window.location = 'login.html';
+    }
+});
+
+function setupPostSubmission(user) {
+    const submitPostButton = document.getElementById('submit-post');
+    const postContent = document.getElementById('post-content');
+
+    submitPostButton.addEventListener('click', () => {
+        const content = postContent.value.trim();
+        if (content) {
+            db.collection('posts').add({
+                content: content,
+                author: user.uid,  // Storing UID to reference later
+                timestamp: new Date()
+            }).then(() => {
+                console.log('Post added!');
+                postContent.value = '';  // Clear textarea
+                loadFeed(); // Reload the feed to include new post
+            }).catch(error => {
+                console.error('Error adding post:', error);
+            });
+        }
+    });
+}
+
+function loadFeed() {
+    const feedContent = document.getElementById('feed-content');
+    db.collection('posts')
+        .orderBy('timestamp', 'desc')
+        .get()
+        .then(snapshot => {
+            feedContent.innerHTML = ''; // Clear previous feed
+            snapshot.forEach(doc => {
+                const postData = doc.data();
+                const userRef = db.collection('users').doc(postData.author);
+                
+                // Fetching user's name from their UID
+                userRef.get().then(userDoc => {
+                    if (userDoc.exists) {
+                        const userName = userDoc.data().name;
+                        feedContent.innerHTML += `
+                            <div class="post">
+                                <p><strong>${userName}</strong></p>
+                                <p>${postData.content}</p>
+                                <p><small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small></p>
+                            </div>
+                        `;
+                    } else {
+                        console.log('No user data found for this post.');
+                    }
+                }).catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error loading feed:', error);
         });
+}
+function setupSearch() {
+    const searchForm = document.getElementById('search-form');
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.querySelector('.search-results');
 
-        // Handle search submit
-        document.getElementById('search-form').addEventListener('submit', (event) => {
+    if (searchForm && searchInput && resultsContainer) {
+        searchForm.addEventListener('submit', (event) => {
             event.preventDefault();
-
-            const queryText = document.getElementById('search-input').value.trim().toLowerCase();
+            const queryText = searchInput.value.trim();
 
             if (queryText) {
                 const athletesRef = db.collection('users');
@@ -46,32 +107,30 @@ auth.onAuthStateChanged((user) => {
                     .where('name', '>=', queryText)
                     .where('name', '<=', queryText + '\uf8ff')
                     .get()
-                    .then((snapshot) => {
-                        const resultsContainer = document.querySelector('.search-results');
+                    .then(snapshot => {
                         resultsContainer.innerHTML = ''; // Clear previous results
 
                         if (snapshot.empty) {
                             resultsContainer.innerHTML = '<p>No athletes found.</p>';
                         } else {
-                            snapshot.forEach((doc) => {
+                            snapshot.forEach(doc => {
                                 const athleteData = doc.data();
-                                const athleteElement = `
+                                resultsContainer.innerHTML += `
                                     <div class="athlete">
                                         <p><strong>${athleteData.name}</strong></p>
                                         <p>${athleteData.age} years old</p>
                                         <p>${athleteData.email}</p>
                                     </div>
                                 `;
-                                resultsContainer.innerHTML += athleteElement;
                             });
                         }
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         console.error('Error fetching athletes:', error);
                     });
+            } else {
+                resultsContainer.innerHTML = '<p>Please enter a search term.</p>';
             }
         });
-    } else {
-        window.location = 'login.html'; // Redirect to login if not authenticated
     }
-});
+}

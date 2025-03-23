@@ -10,9 +10,9 @@
     <header>
         <h1>AthIn</h1>
         <form id="search-form">
-            <input type="text" id="search-input" placeholder="Search Athletes" name="search" />
+            <input type="text" id="search-input" placeholder="Search Athletes">
             <button type="submit">
-                <img src="path-to-search-icon.svg" alt="Search" height="20" />
+                <img src="path-to-search-icon.svg" alt="Search" height="20">
             </button>
         </form>
         <nav>
@@ -26,12 +26,14 @@
         </nav>
     </header>
     
-    
-    <main>
-        <section class="feed">
-            <!-- User-specific feed content will be loaded here -->
+    <main class="vertical-layout">
+        <section class="new-post">
+            <h3>Create a Post</h3>
+            <textarea id="post-content" placeholder="What's on your mind?" rows="4"></textarea>
+            <button id="submit-post">Post</button>
         </section>
-        <aside>
+        
+        <aside class="suggestions">
             <h3>Suggested Connections</h3>
             <ul>
                 <li>User 1</li>
@@ -39,12 +41,26 @@
                 <li>User 3</li>
             </ul>
         </aside>
+        
+        <section class="feed">
+            <h3>Feed</h3>
+            <div id="feed-content">
+                <!-- Posts will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <div class="search-results">
+            <!-- Search results will be displayed here -->
+        </div>
     </main>
 
     <footer>
         <p>&copy; 2023 AthIn</p>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script>
     <script src="AthIn.js"></script>
 </body>
 </html>
