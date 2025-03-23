@@ -7,6 +7,8 @@ const firebaseConfig = {
     appId: "1:120569115968:web:8a389038e29364d8d136a5"
 };
 
+
+
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -15,29 +17,61 @@ if (!firebase.apps.length) {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const signupForm = document.getElementById('signup-form');
-if (signupForm) {
-    signupForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = signupForm['name'].value;
-        const age = signupForm['age'].value;
-        const email = signupForm['email'].value;
-        const password = signupForm['password'].value;
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get('uid'); // Get the 'uid' parameter from the URL
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                return db.collection('users').doc(userCredential.user.uid).set({
-                    name: name,
-                    age: age,
-                    email: email
-                });
-            })
-            .then(() => {
-                console.log('User signed up and data stored.');
-                window.location = 'profile.html'; // Redirect to profile
-            })
-            .catch((error) => {
-                console.error('Error during sign up:', error);
+        if (userId) {
+            const userRef = db.collection('users').doc(userId);
+            userRef.get().then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    document.getElementById('profile-details').innerHTML = `
+                        <p>Name: ${userData.name}</p>
+                        <p>Age: ${userData.age}</p>
+                        <p>Email: ${userData.email}</p>
+                    `;
+                    // Load posts by this user
+                    loadUserPosts(userId);
+                } else {
+                    console.error('No user profile found.');
+                }
+            }).catch((error) => {
+                console.error('Error retrieving user profile:', error);
             });
-    });
+        } else {
+            console.warn('No user ID found in URL.');
+        }
+    } else {
+        console.log('User not authenticated, redirecting to login.');
+        window.location = 'login.html';
+    }
+});
+
+function loadUserPosts(userId) {
+    const userPostsContainer = document.getElementById('user-posts');
+    db.collection('posts')
+        .where('author', '==', userId)
+        .orderBy('timestamp', 'desc')
+        .get()
+        .then(snapshot => {
+            userPostsContainer.innerHTML = ''; // Clear previous posts
+            if (snapshot.empty) {
+                userPostsContainer.innerHTML = '<p>No posts found.</p>';
+            } else {
+                snapshot.forEach(doc => {
+                    const postData = doc.data();
+                    userPostsContainer.innerHTML += `
+                        <div class="post">
+                            <p>${postData.content}</p>
+                            <p><small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small></p>
+                        </div>
+                    `;
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user posts:', error);
+        });
 }

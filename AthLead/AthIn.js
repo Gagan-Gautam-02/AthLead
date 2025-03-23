@@ -7,7 +7,6 @@ const firebaseConfig = {
     appId: "1:120569115968:web:8a389038e29364d8d136a5"
 };
 
-
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -44,7 +43,7 @@ function setupPostSubmission(user) {
         if (content) {
             db.collection('posts').add({
                 content: content,
-                author: user.uid,  // Storing UID to reference later
+                author: user.uid,
                 timestamp: new Date()
             }).then(() => {
                 console.log('Post added!');
@@ -68,13 +67,14 @@ function loadFeed() {
                 const postData = doc.data();
                 const userRef = db.collection('users').doc(postData.author);
                 
-                // Fetching user's name from their UID
+                // Fetching user's name for the posts
                 userRef.get().then(userDoc => {
                     if (userDoc.exists) {
                         const userName = userDoc.data().name;
+                        const userId = userDoc.id;
                         feedContent.innerHTML += `
                             <div class="post">
-                                <p><strong>${userName}</strong></p>
+                                <p><strong><a href="profile.html?uid=${userId}">${userName}</a></strong></p>
                                 <p>${postData.content}</p>
                                 <p><small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small></p>
                             </div>
@@ -91,12 +91,12 @@ function loadFeed() {
             console.error('Error loading feed:', error);
         });
 }
+
 function setupSearch() {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
-    const resultsContainer = document.querySelector('.search-results');
 
-    if (searchForm && searchInput && resultsContainer) {
+    if (searchForm && searchInput) {
         searchForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const queryText = searchInput.value.trim();
@@ -104,10 +104,12 @@ function setupSearch() {
             if (queryText) {
                 const athletesRef = db.collection('users');
                 athletesRef
-                    .where('name', '>=', queryText)
-                    .where('name', '<=', queryText + '\uf8ff')
+                    .orderBy('name')
+                    .startAt(queryText)
+                    .endAt(queryText + '\uf8ff')
                     .get()
                     .then(snapshot => {
+                        const resultsContainer = document.querySelector('.search-results');
                         resultsContainer.innerHTML = ''; // Clear previous results
 
                         if (snapshot.empty) {
@@ -134,3 +136,4 @@ function setupSearch() {
         });
     }
 }
+
