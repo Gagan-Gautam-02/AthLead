@@ -182,3 +182,40 @@ a:hover {
         display: none;
     }
 }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form#search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+form#search-form input[type="text"] {
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    padding: 5px;
+    width: 200px;
+    font-size: 16px;
+}
+
+form#search-form button {
+    background-color: #F9AA33;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form#search-form button:hover {
+    background-color: #FFDDC1;
+}
+
+form#search-form img {
+    display: inline-block;
+}
