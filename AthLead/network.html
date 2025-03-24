@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Network - AthIn</title>
+    <link rel="stylesheet" href="network.css">
+</head>
+<body>
+    <header>
+        <h1>AthIn</h1>
+        <nav>
+            <ul>
+                <li><a href="AthIn.html">Home</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="profile.html?uid=YOUR_UID">Profile</a></li>
+                <li><a href="login.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="network">
+            <h2>Your Network</h2>
+            <div id="following-list">
+                <!-- Followed users will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 AthIn</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script>
+    <script src="network.js"></script>
+</body>
+</html>

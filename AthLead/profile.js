@@ -8,7 +8,6 @@ const firebaseConfig = {
 };
 
 
-
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -20,10 +19,15 @@ const db = firebase.firestore();
 auth.onAuthStateChanged((user) => {
     if (user) {
         const params = new URLSearchParams(window.location.search);
-        const userId = params.get('uid'); // Get the 'uid' parameter from the URL
+        const userId = params.get('uid'); // The UID of the profile being viewed
+        const currentUserUid = user.uid; // Current logged-in user ID
 
         if (userId) {
+            // Reference to the user's profile
             const userRef = db.collection('users').doc(userId);
+            const followingRef = db.collection('users').doc(currentUserUid).collection('following').doc(userId);
+
+            // Fetch profile information
             userRef.get().then((doc) => {
                 if (doc.exists) {
                     const userData = doc.data();
@@ -31,9 +35,36 @@ auth.onAuthStateChanged((user) => {
                         <p>Name: ${userData.name}</p>
                         <p>Age: ${userData.age}</p>
                         <p>Email: ${userData.email}</p>
+                        <p>Sports: ${userData.sports || 'Not specified'}</p>
+                        <p>Experience: ${userData.experience ? userData.experience.replace(/\n/g, '<br>') : 'Not specified'}</p>
+                        <p>Achievements: ${userData.achievements ? userData.achievements.replace(/\n/g, '<br>') : 'Not specified'}</p>
+                        <button id="follow-button">Follow</button>
+                        <p id="follow-status"></p>
                     `;
-                    // Load posts by this user
-                    loadUserPosts(userId);
+
+                    // Check if already following this user
+                    followingRef.get().then((followDoc) => {
+                        if (followDoc.exists) {
+                            document.getElementById('follow-button').innerText = 'Unfollow';
+                        }
+
+                        // Add follow/unfollow functionality
+                        document.getElementById('follow-button').addEventListener('click', () => {
+                            followingRef.get().then((followDoc) => {
+                                if (followDoc.exists) {
+                                    followingRef.delete().then(() => {
+                                        document.getElementById('follow-button').innerText = 'Follow';
+                                        console.log(`Unfollowed ${userData.name}`);
+                                    });
+                                } else {
+                                    followingRef.set({ name: userData.name }).then(() => {
+                                        document.getElementById('follow-button').innerText = 'Unfollow';
+                                        console.log(`Following ${userData.name}`);
+                                    });
+                                }
+                            });
+                        });
+                    });
                 } else {
                     console.error('No user profile found.');
                 }
@@ -48,30 +79,3 @@ auth.onAuthStateChanged((user) => {
         window.location = 'login.html';
     }
 });
-
-function loadUserPosts(userId) {
-    const userPostsContainer = document.getElementById('user-posts');
-    db.collection('posts')
-        .where('author', '==', userId)
-        .orderBy('timestamp', 'desc')
-        .get()
-        .then(snapshot => {
-            userPostsContainer.innerHTML = ''; // Clear previous posts
-            if (snapshot.empty) {
-                userPostsContainer.innerHTML = '<p>No posts found.</p>';
-            } else {
-                snapshot.forEach(doc => {
-                    const postData = doc.data();
-                    userPostsContainer.innerHTML += `
-                        <div class="post">
-                            <p>${postData.content}</p>
-                            <p><small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small></p>
-                        </div>
-                    `;
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching user posts:', error);
-        });
-}
