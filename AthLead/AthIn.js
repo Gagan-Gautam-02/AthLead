@@ -19,7 +19,7 @@ auth.onAuthStateChanged((user) => {
     if (user) {
         console.log('User is logged in:', user.uid);
 
-        // Setup post submission
+        // Setup post submission listener
         setupPostSubmission(user);
 
         // Load existing feed
@@ -44,11 +44,11 @@ function setupPostSubmission(user) {
             db.collection('posts').add({
                 content: content,
                 author: user.uid,
-                timestamp: new Date()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 console.log('Post added!');
                 postContent.value = '';  // Clear textarea
-                loadFeed(); // Reload the feed to include new post
+                loadFeed(); // Reload the feed to include the new post
             }).catch(error => {
                 console.error('Error adding post:', error);
             });
@@ -66,7 +66,7 @@ function loadFeed() {
             snapshot.forEach(doc => {
                 const postData = doc.data();
                 const userRef = db.collection('users').doc(postData.author);
-                
+
                 // Fetching user's name for the posts
                 userRef.get().then(userDoc => {
                     if (userDoc.exists) {
@@ -136,4 +136,3 @@ function setupSearch() {
         });
     }
 }
-
