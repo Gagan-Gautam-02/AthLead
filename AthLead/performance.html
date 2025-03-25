@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Tracker - AthIn</title>
+    <link rel="stylesheet" href="performance.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-dumbbell"></i> Performance Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="AthIn.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="network.html"><i class="fas fa-users"></i> Network</a></li>
+                <li><a href="my-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    
+    <main>
+        <section class="sports-selection">
+            <h2>Select Your Sport</h2>
+            <form id="sports-form">
+                <label for="sports">Choose your sport:</label>
+                <select id="sports" name="sports">
+                    <option value="Cricket">Cricket</option>
+                    <option value="Kabaddi">Kabaddi</option>
+                </select>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+        
+        <section class="performance-tracking">
+            <h2>Your Performance Plan</h2>
+            <button id="start-tracking">Start Tracking</button>
+            <div id="day-plans">
+                <!-- Plans and progress for each day will be displayed here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 AthIn</p>
+    </footer>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script>
+    <script src="performance.js"></script>
+</body>
+</html>
