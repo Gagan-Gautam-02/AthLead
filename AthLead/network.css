@@ -1,7 +1,7 @@
 /* General Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom right, #e6f0ff, #f0f4f8);
+    background: linear-gradient(to bottom right, #e1ecf4, #f3f9fb);
     color: #333;
     margin: 0;
     padding: 0;
@@ -25,6 +25,16 @@ header {
     z-index: 100;
 }
 
+header h1 {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+header h1 i {
+    margin-right: 10px;
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -40,6 +50,9 @@ nav ul li a {
     text-decoration: none;
     color: #EDF2F7;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     transition: color 0.3s;
 }
 
@@ -80,11 +93,20 @@ main {
     padding: 15px;
     margin: 10px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease-in;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 #following-list .followed-user:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#following-list .followed-user img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 footer {
