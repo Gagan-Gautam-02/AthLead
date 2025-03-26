@@ -27,7 +27,7 @@ auth.onAuthStateChanged((user) => {
       
         // Load user's existing sport if available
         const userRef = db.collection('users').doc(userId);
-        
+
         userRef.get().then((doc) => {
             if (doc.exists) {
                 const userData = doc.data();
@@ -72,7 +72,7 @@ function loadDayPlans(sport, container, userId) {
     // Simple mockup of 5 days of plans, extend as needed
     for (let day = 1; day <= 5; day++) {
         const dayDoc = db.collection('users').doc(userId).collection('tracking').doc(`day${day}`);
-        
+
         dayDoc.get().then((doc) => {
             let isComplete = false;
             if (doc.exists) {
@@ -85,7 +85,7 @@ function loadDayPlans(sport, container, userId) {
                 </div>
             `;
             container.innerHTML += planContent;
-            
+
             const tickButton = document.querySelector(`#day-${day} .tick-button`);
             tickButton.addEventListener('click', () => {
                 // Update Firestore and UI to reflect completion
