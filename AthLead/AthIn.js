@@ -37,7 +37,7 @@ auth.onAuthStateChanged((user) => {
 
         // Setup search functionality
         setupSearch();
-
+        
     } else {
         console.log('User not authenticated, redirecting to login.');
         window.location = 'login.html';
@@ -83,7 +83,7 @@ function loadFeed() {
                         const userName = userDoc.data().name;
                         const userId = userDoc.id;
                         feedContent.innerHTML += `
-                            <div class="post">
+                            <div class="post-item">
                                 <p><strong><a href="profile.html?uid=${userId}">${userName}</a></strong></p>
                                 <p>${postData.content}</p>
                                 <p><small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small></p>

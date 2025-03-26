@@ -6,7 +6,7 @@
     <title>Login - AthIn</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        /* body {
             font-family: 'Montserrat', sans-serif;
             background-color: #ffffff;
             color: #1e40af;
@@ -20,6 +20,25 @@
             min-height: 100vh;
             margin: 0;
         }
+ */
+
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('AthLead/WhatsApp Image 2025-03-26 at 23.20.44_059b93d5.jpg');
+    background-size: 150% 200%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
 
         .container {
             background-color: #000000;
