@@ -21,6 +21,14 @@ auth.onAuthStateChanged((user) => {
     if (user) {
         console.log('User is logged in:', user.uid);
 
+        // Setup toggle post functionality
+        const togglePostButton = document.getElementById('toggle-post');
+        const postSection = document.querySelector('.new-post');
+
+        togglePostButton.addEventListener('click', () => {
+            postSection.classList.toggle('hidden');
+        });
+
         // Setup post submission listener
         setupPostSubmission(user);
 
