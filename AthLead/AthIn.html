@@ -18,7 +18,8 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
-
+        
+        
         header, footer, nav, .new-post, .suggestions, .feed, .search-results {
             background-color: #000000;
             color: #cbd5e1;
@@ -26,6 +27,22 @@
             padding: 1.5rem;
             margin-bottom: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .new-post, .suggestions, .feed, .search-results { /* Header removed from this rule */
+            background-color: #000000;
+            color: #cbd5e1;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+                border: 2px solid #60a5fa; /* Blue border added */ }
+        header {
+            border-bottom: 2px solid #60a5fa;
+            padding: 1rem;
+        }
+
+        footer {
+            border-top: 2px solid #60a5fa;
+            padding: 1rem;
         }
 
         .btn-gradient {
@@ -68,16 +85,13 @@
         }
 
         #search-input {
-            width: 250px;
-            padding: 0.8rem 1.2rem;
+            width: 250px; /* Adjust width here */
+            padding: 0.8rem 1.2rem; /* Adjust padding here for height */
         }
 
         #search-form button {
-            padding: 0.8rem 1.2rem;
-        }
-
-        .hidden {
-            display: none;
+            padding: 0.8rem 1.2rem; /* Adjust padding here for button height */
+            /* You can also adjust width here if needed */
         }
     </style>
 </head>
@@ -104,9 +118,7 @@
     </header>
 
     <main class="container mx-auto p-4">
-        <button id="toggle-post" class="btn-gradient">Create a Post</button>
-
-        <section class="new-post hidden">
+        <section class="new-post">
             <h3 class="text-2xl font-semibold mb-4">Create a Post</h3>
             <textarea id="post-content" placeholder="What's on your mind?" rows="4"></textarea>
             <input type="file" id="post-image" accept="image/*">
