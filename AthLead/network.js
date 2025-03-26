@@ -1,12 +1,13 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDuqeDjqajIdt2C0rCyMEzWQn10aYVLsKM",
-    authDomain: "atkin-4967a.firebaseapp.com",
-    projectId: "atkin-4967a",
-    storageBucket: "atkin-4967a.appspot.com",
-    messagingSenderId: "120569115968",
-    appId: "1:120569115968:web:8a389038e29364d8d136a5"
-};
-
+    apiKey: "AIzaSyCOYChgzDK9lFj7Zskw96BPbTo23DVf3zw",
+    authDomain: "athlead-30cf1.firebaseapp.com",
+    databaseURL: "https://athlead-30cf1-default-rtdb.firebaseio.com",
+    projectId: "athlead-30cf1",
+    storageBucket: "athlead-30cf1.firebasestorage.app",
+    messagingSenderId: "447310751131",
+    appId: "1:447310751131:web:fca3254842d1500aae2d3e",
+    measurementId: "G-HZGFGP2Q34"
+  };
 
 // Initialize Firebase
 if (!firebase.apps.length) {
