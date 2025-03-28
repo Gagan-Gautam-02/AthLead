@@ -1,100 +1,67 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
-    color: #333;
-    margin: 0;
-    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    color: #1e40af;
+    background-image: url('WhatsApp Image 2025-03-26 at 23.20.44_059b93d5.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden;
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    margin: 0;
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+
 
 .container {
-    max-width: 400px;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    padding: 40px;
+    background-color: #000000;
+    color: #cbd5e1;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 300px;
     text-align: center;
-    transition: transform 0.3s ease;
+    border: 2px solid #60a5fa; /* Blue border added */
 }
 
-.container:hover {
-    transform: translateY(-5px);
+.container h1 {
+    margin-bottom: 1.5rem;
 }
 
-h1 {
-    color: #344955;
-    margin-bottom: 30px;
-    font-size: 28px;
-    font-weight: 700;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="password"],
-button {
-    width: calc(100% - 22px);
-    padding: 12px;
-    margin: 10px 0;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+.container input {
+    background-color: #262626;
+    color: #cbd5e1;
+    border: 1px solid #60a5fa;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1rem;
     box-sizing: border-box;
 }
 
-button {
-    background-color: #F9AA33;
+.container button {
+    background: linear-gradient(to right, #60a5fa, #3b82f6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: white;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
 }
 
-button:hover {
-    background-color: #FFDDC1;
-    transform: scale(1.05);
+.container button:hover {
+    background: linear-gradient(to right, #3b82f6, #2563eb);
 }
 
-p {
-    text-align: center;
-    margin-top: 15px;
-    color: #333;
-}
-
-a {
-    color: #0073e6;
+.container a {
+    color: #60a5fa;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
 }
 
-a:hover {
-    color: #005bb5;
-}
-
-/* Responsive Design for Smaller Screens */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 20px;
-    }
-
-    input, button {
-        font-size: 14px;
-    }
+.container a:hover {
+    color: #93c5fd;
 }

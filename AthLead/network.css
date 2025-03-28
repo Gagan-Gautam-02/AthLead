@@ -1,7 +1,7 @@
 /* General Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom right, #e1ecf4, #f3f9fb);
+    background: linear-gradient(to bottom right, #f0f4c3, #e0f7fa); /* Light yellow to light teal gradient */
     color: #333;
     margin: 0;
     padding: 0;
@@ -13,8 +13,8 @@ body {
 
 header {
     width: 100%;
-    background-color: #1a202c;
-    color: #EDF2F7;
+    background-color: #ffffff; /* White background for header */
+    color: #1a202c; /* Dark slate for text */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
@@ -29,6 +29,7 @@ header h1 {
     font-size: 24px;
     display: flex;
     align-items: center;
+    color: #007acc; /* Light blue for branding */
 }
 
 header h1 i {
@@ -48,8 +49,8 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #EDF2F7;
-    font-weight: 500;
+    color: #007acc; /* Light blue for links */
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -57,7 +58,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #a0aec0;
+    color: #ff6200; /* Orange on hover */
 }
 
 /* Main Content Style */
@@ -88,7 +89,7 @@ main {
 }
 
 #following-list .followed-user {
-    background-color: #f7fafc;
+    background-color: #f7fafc; /* Light background for user items */
     border-radius: 5px;
     padding: 15px;
     margin: 10px 0;
@@ -113,8 +114,8 @@ footer {
     width: 100%;
     text-align: center;
     padding: 15px;
-    background-color: #1a202c;
-    color: #EDF2F7;
+    background-color: #ffffff; /* White background for footer */
+    color: #1a202c;
     position: fixed;
     bottom: 0;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);

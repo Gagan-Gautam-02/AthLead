@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom right, #e6f0ff, #f0f4f8);
+    background: linear-gradient(to bottom right, #f0f4c3, #e0f7fa); /* Light yellow to light teal gradient */
     color: #333;
     margin: 0;
     padding: 0;
@@ -13,13 +13,13 @@ body {
 
 header {
     width: 100%;
-    background-color: #1a202c;
-    color: #EDF2F7;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    color: #1e3e62;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 15px 30px;
     position: fixed;
     top: 0;
     z-index: 100;
@@ -27,7 +27,7 @@ header {
 }
 
 header:hover {
-    background-color: #2d3748;
+    background-color: #f8f9fa;
 }
 
 nav ul {
@@ -43,13 +43,13 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #EDF2F7;
-    font-weight: 500;
+    color: #007acc; /* Light blue for links */
+    font-weight: 600;
     transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #a0aec0;
+    color: #ff6200; /* Orange on hover */
 }
 
 /* Profile Section */
@@ -62,7 +62,7 @@ main {
 .profile {
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     padding: 20px;
     box-sizing: border-box;
     margin-bottom: 20px;
@@ -70,7 +70,7 @@ main {
 }
 
 .profile:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .profile-item {
@@ -80,12 +80,12 @@ main {
 .profile-item h4 {
     font-size: 1.1em;
     margin-bottom: 5px;
-    color: #333;
+    color: #555;
 }
 
 .profile-item p {
     font-size: 1em;
-    color: #555;
+    color: #666;
 }
 
 #my-profile-details {
@@ -96,7 +96,7 @@ main {
 form#edit-profile-form {
     margin-bottom: 20px;
     padding: 20px;
-    background-color: #f0f4f8;
+    background-color: #e8f5e9; /* Light green background */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -105,6 +105,7 @@ form#edit-profile-form label {
     font-weight: bold;
     margin-top: 10px;
     display: block;
+    color: #1e3e62;
 }
 
 form#edit-profile-form input,
@@ -113,12 +114,13 @@ form#edit-profile-form textarea {
     margin-top: 5px;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #c5e1a5;
     margin-bottom: 10px;
+    background-color: #fafafa;
 }
 
 form#edit-profile-form button {
-    background-color: #3182ce;
+    background-color: #007acc; /* Light blue */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -128,12 +130,12 @@ form#edit-profile-form button {
 }
 
 form#edit-profile-form button:hover {
-    background-color: #63b3ed;
+    background-color: #005e99; /* Darker blue */
 }
 
 /* Posts Section */
 #my-posts .post {
-    background-color: #f7fafc;
+    background-color: #f3f4f6; /* Light gray background */
     border-radius: 5px;
     padding: 15px;
     margin: 10px 0;
@@ -143,18 +145,18 @@ form#edit-profile-form button:hover {
 
 #my-posts .post:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-footer {
+.footer {
     width: 100%;
     text-align: center;
     padding: 15px;
-    background-color: #1a202c;
-    color: #EDF2F7;
+    background-color: #1e3e62;
+    color: #ffffff;
     position: fixed;
     bottom: 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .profile-image {
@@ -176,7 +178,7 @@ footer {
 }
 
 .profile-image button {
-    background-color: #3182ce;
+    background-color: #007acc;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -186,5 +188,5 @@ footer {
 }
 
 .profile-image button:hover {
-    background-color: #63b3ed;
+    background-color: #005e99;
 }
