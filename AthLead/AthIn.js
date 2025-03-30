@@ -8,6 +8,7 @@ const firebaseConfig = {
     appId: "1:548897577535:web:941f9b17f3083f6677f68a",
     measurementId: "G-J1DWWFBM16"
   };
+
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -20,7 +21,6 @@ auth.onAuthStateChanged((user) => {
     if (user) {
         console.log('User is logged in:', user.uid);
 
-        // Setup toggle post functionality
         const togglePostButton = document.getElementById('toggle-post');
         const postSection = document.querySelector('.new-post');
 
@@ -28,13 +28,8 @@ auth.onAuthStateChanged((user) => {
             postSection.classList.toggle('hidden');
         });
 
-        // Setup post submission listener
         setupPostSubmission(user);
-
-        // Load existing feed
-        loadFeed();
-
-        // Setup search functionality
+        loadFeed(user);
         setupSearch();
 
     } else {
@@ -53,11 +48,13 @@ function setupPostSubmission(user) {
             db.collection('posts').add({
                 content: content,
                 author: user.uid,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                likes: 0,
+                comments: []
             }).then(() => {
                 console.log('Post added!');
                 postContent.value = '';  // Clear the textarea
-                loadFeed(); // Reload the feed to include the new post
+                loadFeed(user);
             }).catch(error => {
                 console.error('Error adding post:', error);
             });
@@ -65,7 +62,7 @@ function setupPostSubmission(user) {
     });
 }
 
-function loadFeed() {
+function loadFeed(user) {
     const feedContent = document.getElementById('feed-content');
     db.collection('posts')
         .orderBy('timestamp', 'desc')
@@ -74,22 +71,33 @@ function loadFeed() {
             feedContent.innerHTML = ''; // Clear previous feed
             snapshot.forEach(doc => {
                 const postData = doc.data();
+                const postId = doc.id;
                 const userRef = db.collection('users').doc(postData.author);
 
-                // Fetching user's name for the posts
                 userRef.get().then(userDoc => {
                     if (userDoc.exists) {
                         const userName = userDoc.data().name;
                         const userId = userDoc.id;
                         feedContent.innerHTML += `
                             <div class="post-item">
+                                <img src="ProfileImg.png" class="profilepic">
                                 <p><strong><a href="profile.html?uid=${userId}">${userName}</a></strong></p>
-                                <p>${postData.content}</p>
-                                <p><small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small></p>
+                            <br><p>${postData.content}</p><br>
+                                <small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small>
+                                <div>
+                                    <button onclick="likePost('${postId}')">Like (${postData.likes || 0})</button>
+                                    <button onclick="toggleComment('${postId}')">Comment</button>
+                                </div>
+                                <div id="comments-${postId}" class="hidden">
+                                    <input type="text" id="comment-input-${postId}" placeholder="Write a comment..." class="w-full p-2 border rounded mb-2">
+                                    <button onclick="submitComment('${postId}', '${user.uid}')">Submit</button>
+                                    <div id="comment-list-${postId}"></div>
+                                </div>
                             </div>
                         `;
+                        loadComments(postId);
                     } else {
-                        console.log('No user data found for this post.');
+                        console.error('No user data found for this post ID:', postId);
                     }
                 }).catch(error => {
                     console.error('Error fetching user data:', error);
@@ -99,6 +107,73 @@ function loadFeed() {
         .catch(error => {
             console.error('Error loading feed:', error);
         });
+}
+
+function likePost(postId) {
+    const postRef = db.collection('posts').doc(postId);
+    postRef.update({
+        likes: firebase.firestore.FieldValue.increment(1)
+    }).then(() => {
+        console.log('Post liked!');
+        loadFeed(auth.currentUser);
+    }).catch(error => {
+        console.error('Error liking post:', error);
+    });
+}
+
+function toggleComment(postId) {
+    const commentsSection = document.getElementById(`comments-${postId}`);
+    commentsSection.classList.toggle('hidden');
+}
+
+function submitComment(postId, userId) {
+    const commentInput = document.getElementById(`comment-input-${postId}`);
+    const commentContent = commentInput.value.trim();
+    if (commentContent) {
+        const postRef = db.collection('posts').doc(postId);
+        postRef.update({
+            comments: firebase.firestore.FieldValue.arrayUnion({
+                content: commentContent,
+                author: userId,
+                timestamp: Date.now()
+            })
+        }).then(() => {
+            console.log('Comment added!');
+            commentInput.value = '';  // Clear the comment input
+            loadComments(postId);
+        }).catch(error => {
+            console.error('Error adding comment:', error);
+        });
+    }
+}
+
+function loadComments(postId) {
+    const postRef = db.collection('posts').doc(postId);
+    postRef.get().then(doc => {
+        if (doc.exists) {
+            const commentsList = doc.data().comments || [];
+            const commentsContainer = document.getElementById(`comment-list-${postId}`);
+            commentsContainer.innerHTML = '';  // Clear existing comments
+            commentsList.forEach(comment => {
+                const authorRef = db.collection('users').doc(comment.author);
+                authorRef.get().then(authorDoc => {
+                    if (authorDoc.exists) {
+                        const authorName = authorDoc.data().name;
+                        commentsContainer.innerHTML += `
+                            <div class="comment-item">
+                                <p><strong>${authorName}</strong>: ${comment.content}</p>
+                                <p><small>${new Date(comment.timestamp).toLocaleString()}</small></p>
+                            </div>
+                        `;
+                    }
+                }).catch(error => {
+                    console.error('Error fetching comment author data:', error);
+                });
+            });
+        }
+    }).catch(error => {
+        console.error('Error loading comments:', error);
+    });
 }
 
 function setupSearch() {
@@ -118,8 +193,7 @@ function setupSearch() {
                     .where('name', '<=', queryText + '\uf8ff')
                     .get()
                     .then(snapshot => {
-                        resultsContainer.innerHTML = ''; // Clear previous results
-
+                        resultsContainer.innerHTML = '';  // Clear previous results
                         if (snapshot.empty) {
                             resultsContainer.innerHTML = '<p>No athletes found.</p>';
                         } else {

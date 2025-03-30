@@ -86,3 +86,23 @@ input, textarea {
 input:focus, textarea:focus {
     border-color: #ff4500;
 }
+
+#Likebtn{
+    border: solid;
+    border-color: #ff6200;
+    border-width: 1px;
+    border-radius: 7px;
+    position: right;
+    
+}
+
+#Commentbtn{
+    border: solid;
+    border-color: #ff6200;
+    border-width: 1px;
+    border-radius: 7px;
+}
+
+.profilepic{
+    height: 20px;
+}
