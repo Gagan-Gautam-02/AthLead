@@ -1,14 +1,13 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyCOYChgzDK9lFj7Zskw96BPbTo23DVf3zw",
-    authDomain: "athlead-30cf1.firebaseapp.com",
-    databaseURL: "https://athlead-30cf1-default-rtdb.firebaseio.com",
-    projectId: "athlead-30cf1",
-    storageBucket: "athlead-30cf1.firebasestorage.app",
-    messagingSenderId: "447310751131",
-    appId: "1:447310751131:web:fca3254842d1500aae2d3e",
-    measurementId: "G-HZGFGP2Q34"
+    apiKey: "AIzaSyB8NYQSC8QMM9AKM0m3bofLNICw00RsPv0",
+    authDomain: "athlead-9e4d0.firebaseapp.com",
+    databaseURL: "https://athlead-9e4d0-default-rtdb.firebaseio.com",
+    projectId: "athlead-9e4d0",
+    storageBucket: "athlead-9e4d0.firebasestorage.app",
+    messagingSenderId: "548897577535",
+    appId: "1:548897577535:web:941f9b17f3083f6677f68a",
+    measurementId: "G-J1DWWFBM16"
   };
-
 // Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -37,7 +36,7 @@ auth.onAuthStateChanged((user) => {
 
         // Setup search functionality
         setupSearch();
-        
+
     } else {
         console.log('User not authenticated, redirecting to login.');
         window.location = 'login.html';
@@ -57,7 +56,7 @@ function setupPostSubmission(user) {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 console.log('Post added!');
-                postContent.value = '';  // Clear textarea
+                postContent.value = '';  // Clear the textarea
                 loadFeed(); // Reload the feed to include the new post
             }).catch(error => {
                 console.error('Error adding post:', error);
@@ -105,8 +104,9 @@ function loadFeed() {
 function setupSearch() {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.querySelector('.search-results');
 
-    if (searchForm && searchInput) {
+    if (searchForm && searchInput && resultsContainer) {
         searchForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const queryText = searchInput.value.trim();
@@ -114,12 +114,10 @@ function setupSearch() {
             if (queryText) {
                 const athletesRef = db.collection('users');
                 athletesRef
-                    .orderBy('name')
-                    .startAt(queryText)
-                    .endAt(queryText + '\uf8ff')
+                    .where('name', '>=', queryText)
+                    .where('name', '<=', queryText + '\uf8ff')
                     .get()
                     .then(snapshot => {
-                        const resultsContainer = document.querySelector('.search-results');
                         resultsContainer.innerHTML = ''; // Clear previous results
 
                         if (snapshot.empty) {

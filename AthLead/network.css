@@ -1,39 +1,16 @@
-/* General Styling */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom right, #f0f4c3, #e0f7fa); /* Light yellow to light teal gradient */
-    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom right, #f0f4c3, #e0f7fa);
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+    color: #1a202c;
 }
 
-header {
-    width: 100%;
-    background-color: #ffffff; /* White background for header */
-    color: #1a202c; /* Dark slate for text */
+header, footer, .network, aside {
+    background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    z-index: 100;
-}
-
-header h1 {
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    color: #007acc; /* Light blue for branding */
-}
-
-header h1 i {
-    margin-right: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 nav ul {
@@ -49,74 +26,65 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #007acc; /* Light blue for links */
+    color: #007acc;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 5px;
     transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    color: #ff6200; /* Orange on hover */
+    color: #ff6200;
 }
 
-/* Main Content Style */
-main {
-    padding: 80px 20px 20px;
-    max-width: 800px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.network {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+.network, aside {
     padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: box-shadow 0.3s, transform 0.3s;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.network:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
+    border-radius: 10px;
+    transition: box-shadow 0.3s, transform 0.3s ease-in;
 }
 
 #following-list .followed-user {
-    background-color: #f7fafc; /* Light background for user items */
-    border-radius: 5px;
+    background-color: #f7fafc;
+    border-radius: 8px;
     padding: 15px;
-    margin: 10px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in;
+    transition: 0.3s ease-in;
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 #following-list .followed-user:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateX(5px);
 }
 
 #following-list .followed-user img {
     border-radius: 50%;
     width: 50px;
     height: 50px;
+    object-fit: cover;
+}
+
+#search-connections {
+    border: 2px solid #007acc;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#search-connections:focus {
+    border-color: #ff6200;
+}
+
+#pending-requests li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    background-color: #ffffff; /* White background for footer */
-    color: #1a202c;
-    position: fixed;
-    bottom: 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    color: #333;
 }
