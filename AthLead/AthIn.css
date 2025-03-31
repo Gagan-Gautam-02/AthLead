@@ -114,7 +114,7 @@ input:focus, textarea:focus {
     --black: #1a1a1a;
 }
 
-body.chat-open {
+.chat-open {
     .chat-window {
         display: flex;
     }
