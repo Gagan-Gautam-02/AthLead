@@ -1,73 +1,50 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const businessInfo = `
-
-General Business Information:
-Website: www.yourbusiness.com
+"General Business Information:
+Website: www.Athln.com
 
 Return Policy:
 Customers can return products within 30 days of purchase with the original receipt.
 Items must be unused and in their original packaging.
 Refunds will be processed to the original payment method.
 
-Support Email: support@yourbusiness.com
+Support Email: support@Athln.com
 
-Madrid Location:
-Address: Calle Mayor 123, 28013 Madrid, Spain
-Phone: +34 91 123 4567
-Email: madrid@yourbusiness.com
+Delhi Ghaziabad Location:
+Address: [Your Exact Address], Delhi Ghaziabad, India
+Phone: [Your Contact Number]
+Email: delhi@Athln.com
 Opening Hours:
 Monday to Friday: 10:00 AM to 8:00 PM
 Saturday: 10:00 AM to 6:00 PM
-Sunday: Closed
-
-New York Location:
-Address: 456 Broadway, New York, NY 10012, USA
-Phone: +1 212-123-4567
-Email: newyork@yourbusiness.com
-Opening Hours:
-Monday to Friday: 9:00 AM to 7:00 PM
-Saturday: 10:00 AM to 5:00 PM
 Sunday: Closed
 
 FAQs:
 General:
 What is your return policy?
-
 You can return items within 30 days with the original receipt and packaging. Refunds are processed to the original payment method.
-Do you ship internationally?
 
-Yes, we ship to most countries. Shipping rates and delivery times vary by location.
-How can I track my order?
+Do you offer athlete employment opportunities?
+Yes, Athln helps athletes find job opportunities based on their skills and experience. Visit our website for more details.
 
-You will receive a tracking number via email once your order is shipped.
-Can I cancel or modify my order?
+How can I track my activity progress?
+You can log into your Athln account to manually update and track your activities.
 
-Orders can be modified or canceled within 24 hours. Please contact support@yourbusiness.com.
-Madrid Location:
-What are your opening hours in Madrid?
+Can I modify my personal details on Athln?
+Yes, users can update their information by accessing their profile settings.
 
+Delhi Ghaziabad Location:
+What are your opening hours in Delhi?
 Monday to Friday: 10:00 AM to 8:00 PM
 Saturday: 10:00 AM to 6:00 PM
 Sunday: Closed
-Is parking available at the Madrid store?
 
-Yes, we offer parking nearby. Contact us for details.
-How can I contact the Madrid store?
+Is there an in-person consultation available?
+Yes, athletes can schedule a consultation to discuss tracking and job opportunities. Contact us for an appointment.
 
-You can call us at +34 91 123 4567 or email madrid@yourbusiness.com.
-New York Location:
-What are your opening hours in New York?
-
-Monday to Friday: 9:00 AM to 7:00 PM
-Saturday: 10:00 AM to 5:00 PM
-Sunday: Closed
-Do you host events at the New York location?
-
-Yes, we host regular workshops and community events. Check our website for updates.
-How can I contact the New York store?
-
-You can call us at +1 212-123-4567 or email newyork@yourbusiness.com.
+How can I contact the Delhi store?
+You can call us at 92365535432 or email delhi@Athln.com.
 
 Tone Instructions:
 Conciseness: Respond in short, informative sentences.
@@ -75,6 +52,8 @@ Formality: Use polite language with slight formality (e.g., "Please let us know,
 Clarity: Avoid technical jargon unless necessary.
 Consistency: Ensure responses are aligned in tone and style across all queries.
 Example: "Thank you for reaching out! Please let us know if you need further assistance."
+
+"
 
 `;
 
@@ -163,4 +142,3 @@ document.querySelector(".chat-window button.close")
 .addEventListener("click", ()=>{
     document.querySelector("body").classList.remove("chat-open");
 });
-
