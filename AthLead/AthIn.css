@@ -9,6 +9,7 @@ body {
     min-height: 100vh; /* Ensures full height coverage */
 }
 
+
 header, footer, .new-post, .suggestions, .feed, .search-results {
     background-color: #ffffff;
     border-radius: 1px;
@@ -19,7 +20,7 @@ header, footer, .new-post, .suggestions, .feed, .search-results {
 }
 
 header {
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid #00000047;
     /*position: fixed;*/
     z-index: 50;
 }
@@ -78,7 +79,7 @@ input, textarea {
     border-radius: 0.5rem;
     padding: 0.75rem 1rem;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s ease;
@@ -115,14 +116,19 @@ input:focus, textarea:focus {
     --black: #1a1a1a;
 }
 
+section.chat-window{
+    position: fixed;
+}
+
 body.chat-open {
     .chat-window {
         display: flex;
     }
+    
 }
 
 .chat-button {
-    position: absolute;
+    position: fixed;
     bottom: 60px;
     right: 20px;
     z-index: 998;
