@@ -11,15 +11,16 @@ body {
 
 header, footer, .new-post, .suggestions, .feed, .search-results {
     background-color: #ffffff;
-    border-radius: 8px;
-    /* padding: 1.5rem; */
+    border-radius: 1px;
+    padding: 1.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
+    width: 100%;
 }
 
 header {
     border-bottom: 2px solid #e5e7eb;
-    position: fixed; /* To keep it at the top */
+    /*position: fixed;*/
     z-index: 50;
 }
 
@@ -114,7 +115,7 @@ input:focus, textarea:focus {
     --black: #1a1a1a;
 }
 
-.chat-open {
+body.chat-open {
     .chat-window {
         display: flex;
     }
