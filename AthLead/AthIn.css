@@ -1,6 +1,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to bottom right,#314157, #232323);
+    background: linear-gradient(to bottom right,#022b65, #000000);
     color: #1a202c;
     margin: 0;
     padding: 0;
@@ -10,8 +10,8 @@ body {
 }
 
 
-header, footer, .new-post, .suggestions, .feed, .search-results {
-    background-color: #ffffff;
+header, footer, .suggestions, .feed, .search-results {
+    background-color:   #fffafa;
     border-radius: 1px;
     padding: 1.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -48,7 +48,7 @@ footer {
     background: linear-gradient(to right, #ff6200, #ff4500);
 }
 
-.post-item {
+.post-item,.new-post {
     background-color: #f1f5f9;
     border-radius: 8px;
     padding: 1.5rem;

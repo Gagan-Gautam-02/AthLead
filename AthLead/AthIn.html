@@ -52,11 +52,17 @@
             <div>
                 <form id="search-form" class="flex items-center">
                     <input type="text" id="search-input" placeholder="Search Athletes" class="border rounded p-2">
-                    <button type="submit" class="ml-2 btn-gradient"><i class="fas fa-search"></i></button>
+                    <div>
+                        <section class="search-results mb-6">
+                            <!-- Search results will be displayed here -->
+                        </section>
+                    </div>
+                   
                 </form>
             </div>
             <div id = "travcon">
             <ul class="flex space-x-4">
+                <button type="submit" class="ml-2 btn-gradient"><i class="fas fa-search"></i></button>
                 <li><a href="my-profile.html"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="network.html"><i class="fas fa-users"></i> Network</a></li>
                 <li><a href="performance.html"><i class="fas fa-chart-line"></i> Performance</a></li>
@@ -85,10 +91,6 @@
                 <h3 class="text-xl font-semibold mb-4">Create a Post</h3>
                 <textarea id="post-content" placeholder="What's on your mind?" rows="4" class="w-full p-2 border rounded"></textarea>
                 <button id="submit-post" class="btn-gradient mt-2">Post</button>
-            </section>
-
-            <section class="search-results mb-6">
-                <!-- Search results will be displayed here -->
             </section>
             
             <h3 class="text-xl font-semibold mb-4">Feed</h3>
