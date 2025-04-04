@@ -1,269 +1,504 @@
+/* --- Global Styles & Resets --- */
+*, *::before, *::after {
+    box-sizing: border-box; /* Apply consistent box model */
+}
+
+:root {
+    /* Color Palette (from File 1 Theme) */
+    --bg-main: #ffffff;
+    --text-main: #1e40af;
+    --bg-container: #000000;
+    --text-container: #cbd5e1;
+    --bg-item: #1a1a1a;
+    --bg-input: #262626;
+    --accent-blue: #60a5fa;
+    --accent-blue-darker: #3b82f6;
+    --accent-blue-darkest: #2563eb;
+    --accent-blue-lighter: #93c5fd;
+    --border-blue: var(--accent-blue); /* Alias for clarity */
+
+    /* Chat Specific Variables */
+    --chat-grey: #262626;
+    --chat-blue: var(--accent-blue);
+    --chat-black: var(--bg-container);
+    --chat-text-light: var(--text-container);
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to bottom right, #f0f4c3, #e2ebf0);
-    color: #1a202c;
+    background-color: black;
+    color: var(--text-main);
+    background-image: url('WhatsApp Image 2025-03-26 at 23.20.44_6e9c9862.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin: 0;
-    padding: 0;
     display: flex;
-    flex-direction: column; /* Ensure footer stays at the bottom */
-    min-height: 100vh; /* Ensures full height coverage */
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-header, footer, .new-post, .suggestions, .feed, .search-results {
-    background-color: #ffffff;
-    border-radius: 8px;
-    /* padding: 1.5rem; */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
-}
+/* --- Layout Structure --- */
 
+/* Fixed Header */
 header {
-    border-bottom: 2px solid #e5e7eb;
-    position: fixed; /* To keep it at the top */
-    z-index: 50;
-}
-
-footer {
-    border-top: 2px solid #e5e7eb;
-    flex-shrink: 0; /* Ensures the footer doesn't shrink */
-}
-
-.bg-blue-600 {
-    background-color: #2563eb;
-}
-
-.btn-gradient {
-    background: linear-gradient(to right, #ff9000, #ff6200);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-container);
     color: white;
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
+    border-bottom: 2px solid var(--border-blue);
+    padding: var(--space-md);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    /* Removed border-radius */
+}
+
+/* Main Content Area - Provides top padding to clear fixed header */
+main {
+    flex: 1; /* Allows main content to grow and push footer down */
+    /* Calculate padding-top based on header height (padding + border) */
+    /* Example: 1rem padding + 1rem padding + 2px border + 1.5rem margin = ~4.6rem */
+    /* Adjust this value based on actual header height and desired spacing */
+    padding-top: calc(2 * var(--space-md) + 2px + var(--space-lg));
+}
+
+
+/* Centered Content Wrapper - Place inside <main> */
+.main-container {
+    width: 100%;
+    max-width: 1200px; /* Adjust max-width as needed */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-lg); /* Side padding for content */
+    padding-right: var(--space-lg);
+}
+
+/* Example Layout within .main-container (e.g., Feed + Sidebar) */
+.content-layout {
+    display: flex;
+    gap: var(--space-lg); /* Space between columns */
+}
+
+.feed-column { /* Apply to the main feed area */
+    flex: 1; /* Takes remaining space */
+    min-width: 0; /* Prevents flex overflow */
+}
+
+.sidebar-column { /* Apply to the sidebar area */
+    width: 300px; /* Fixed width sidebar example */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+.col-span-1{
+    background-color: black;
+    border: 2px blue solid;
+    color: white;
+}
+.space-y-2{
+    background-color: rgb(18, 18, 18);
+    border-radius: 5px;
+}
+
+.col-span-2{
+    background-color: black;
+    border: 2px solid blue;
+}
+
+/* Sticky Footer */
+#footer {
+    background-color: var(--bg-container);
+    color: var(--text-container);
+    border-top: 2px solid var(--border-blue);
+    padding: var(--space-md);
+    flex-shrink: 0; /* Prevents footer from shrinking */
+    border-radius: 0; /* Footers usually don't need radius */
+    margin-top: var(--space-xl); /* Add space above footer */
+}
+
+
+/* --- General Content Containers (Feed, Suggestions, etc.) --- */
+/* Apply to elements like .new-post, .suggestions, .feed, .search-results */
+.content-block {
+    background-color: var(--bg-container);
+    color: var(--text-container);
+    border-radius: var(--space-md); /* Consistent radius */
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg); /* Consistent margin */
+    border: 2px solid var(--border-blue);
+}
+
+/* --- Specific Elements --- */
+
+/* Buttons */
+.btn-gradient {
+    background: linear-gradient(to right, var(--accent-blue), var(--accent-blue-darker));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: var(--space-sm) var(--space-lg); /* Use spacing variables */
+    border-radius: var(--space-xl); /* Pill shape */
+    border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    text-decoration: none; /* For button-like links */
+    display: inline-block; /* For proper padding/margin */
+    text-align: center;
+    transition: background 0.2s ease; /* Smooth hover */
 }
 
 .btn-gradient:hover {
-    background: linear-gradient(to right, #ff6200, #ff4500);
+    background: linear-gradient(to right, var(--accent-blue-darker), var(--accent-blue-darkest));
 }
 
+/* Post Item */
 .post-item {
-    background-color: #f1f5f9;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ff6200;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--bg-item);
+    border-radius: var(--space-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    border: 1px solid var(--border-blue);
+    color: var(--text-container); /* Ensure text color is set */
 }
 
-.post-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
+/* Links */
 a {
-    color: #2563eb;
-    transition: color 0.3s ease;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 a:hover {
-    color: #1e40af;
+    color: var(--accent-blue-lighter);
+    text-decoration: underline;
+}
+/* Links within dark containers might need different color */
+.content-block a {
+     color: var(--accent-blue-lighter); /* Lighter blue for dark bg */
+}
+.content-block a:hover {
+      color: white;
 }
 
+
+/* Forms */
 input, textarea {
-    background-color: #e2e8f0;
-    color: #1a202c;
-    border: 1px solid #ff6200;
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
+    background-color: var(--bg-input);
+    color: var(--text-container);
+    border: 1px solid var(--border-blue);
+    border-radius: var(--space-xs); /* Consistent radius */
+    padding: var(--space-sm) var(--space-md);
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-md); /* Consistent margin */
     font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s ease;
+    font-family: inherit; /* Inherit body font */
+    transition: border-color 0.2s ease;
 }
 
 input:focus, textarea:focus {
-    border-color: #ff4500;
+    outline: none;
+    border-color: var(--accent-blue-lighter);
+    /* Optional: add subtle box-shadow for focus */
+    /* box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); */
 }
 
-#Likebtn{
-    border: solid;
-    border-color: #ff6200;
-    border-width: 1px;
-    border-radius: 7px;
-    position: right;
-    
+textarea {
+    min-height: 100px; /* Give textarea some default height */
+    resize: vertical; /* Allow vertical resize */
 }
 
-#Commentbtn{
-    border: solid;
-    border-color: #ff6200;
-    border-width: 1px;
-    border-radius: 7px;
+/* Like/Comment Buttons */
+#Likebtn, #Commentbtn {
+    border: 1px solid var(--border-blue);
+    border-radius: var(--space-xs);
+    background-color: transparent;
+    color: var(--accent-blue);
+    padding: var(--space-xs) var(--space-md);
+    cursor: pointer;
+    margin-left: var(--space-xs);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.profilepic{
-    height: 20px;
+#Likebtn:hover, #Commentbtn:hover {
+    background-color: var(--bg-input);
+    color: var(--accent-blue-lighter);
 }
 
-
-:root {
-    --grey: #f5f5f5;
-    --blue: #3d88f9;
-    --black: #1a1a1a;
+/* Profile Picture */
+.profilepic {
+    height: 24px; /* Slightly larger */
+    width: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: var(--space-xs); /* Add space next to pic */
+    object-fit: cover; /* Prevent image distortion */
 }
 
-.chat-open {
-    .chat-window {
-        display: flex;
-    }
+/* Search Input/Button (Example - Apply correct IDs/Classes) */
+#search-input {
+    width: 250px;
+    padding: var(--space-sm) var(--space-md);
+}
+
+#search-form button {
+    padding: var(--space-sm) var(--space-md);
+    /* Use btn-gradient styles */
+    background: linear-gradient(to right, var(--accent-blue), var(--accent-blue-darker));
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: var(--space-xl);
+    border: none;
+    cursor: pointer;
+}
+#search-form button:hover {
+    background: linear-gradient(to right, var(--accent-blue-darker), var(--accent-blue-darkest));
+}
+
+/* --- Chat Styles --- */
+
+.chat-open .chat-window {
+    display: flex; /* Keep this */
 }
 
 .chat-button {
-    position: absolute;
-    bottom: 60px;
-    right: 20px;
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
     z-index: 998;
-    background-color: var(--black);
-    color: white;
-    height: 80px;
-    width: 80px;
-    border-radius: 100%;
+    background-color: var(--chat-black);
+    color: var(--chat-text-light);
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border: 1px solid var(--chat-blue);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-    img {
-        width: 50px;
-    }
+.chat-button img {
+    width: 30px;
+    height: 30px; /* Explicit height */
+}
 
-    &:hover {
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    }
+.chat-button:hover { /* Standard CSS hover */
+    background-color: var(--bg-item); /* Use item background on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .chat-window {
-
-    * {
-        font-family: "Raleway", sans-serif;
-    }
-
     display: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    background-color: white;
-    border-radius: 20px;
-    position: absolute;
+    flex-direction: column; /* Ensure direction is set */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background-color: var(--chat-black);
+    border: 1px solid var(--chat-blue);
+    color: var(--chat-text-light);
+    border-radius: var(--space-md); /* Use variable */
+    position: fixed;
     z-index: 999;
-    bottom: 60px;
-    right: 20px;
-    height: 600px;
-    width: 360px;
-    flex-direction: column;
-    justify-content: space-between;
+    bottom: calc(60px + var(--space-lg) + var(--space-sm)); /* Position above button */
+    right: var(--space-lg);
+    height: 500px;
+    width: 350px;
+    overflow: hidden; /* Keep clipping content */
+}
 
-    .close {
-        border: none;
-        padding: 8px 0;
-        background-color: var(--black);
-        color: white;
-        border-radius: 20px 20px 0 0;
-        cursor: pointer;
-    }
+.chat-window * {
+    font-family: 'Montserrat', sans-serif; /* Ensure font */
+}
 
-    .chat {
-        flex: 1;
-        padding: 0 8px;
-        overflow-y: scroll;
+.chat-window .close { /* Standard CSS selector */
+    border: none;
+    padding: var(--space-sm) 0;
+    background-color: var(--bg-item);
+    color: var(--chat-text-light);
+    border-bottom: 1px solid var(--chat-blue);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+.chat-window .close:hover { /* Standard CSS hover */
+    background-color: var(--chat-grey);
+}
 
-        p {
-            border-radius: 20px;
-            width: 80%;
-            margin: 8px 0;
-            font-size: 16px;
-            padding: 16px;
-        }
+.chat {
+    flex: 1;
+    padding: var(--space-xs) var(--space-md);
+    overflow-y: auto;
+}
+/* Custom Scrollbar (Standard CSS) */
+.chat::-webkit-scrollbar {
+    width: 8px;
+}
+.chat::-webkit-scrollbar-track {
+    background: var(--bg-item);
+    border-radius: 4px;
+}
+.chat::-webkit-scrollbar-thumb {
+    background-color: var(--chat-blue);
+    border-radius: 4px;
+    border: 2px solid var(--bg-item);
+}
 
-        div.model {
+.chat p {
+    border-radius: var(--space-md);
+    width: auto;
+    max-width: 85%;
+    margin: var(--space-sm) 0;
+    font-size: 0.95rem;
+    padding: var(--space-sm) var(--space-md);
+    line-height: 1.4;
+    word-wrap: break-word; /* Prevent long words overflowing */
+}
 
-            p {
-                background-color: var(--grey);
-            }
+.chat div.model p {
+    background-color: var(--chat-grey);
+    color: var(--chat-text-light);
+    margin-right: auto;
+}
 
-            
-        }
+.chat div.user {
+    display: flex;
+    justify-content: flex-end;
+}
+.chat div.user p {
+    background-color: var(--chat-blue);
+    color: white;
+    margin-left: auto;
+}
 
-        div.user {
-            display: flex;
-            justify-content: flex-end;
+.chat div.error p {
+    font-size: 0.9rem;
+    text-align: center;
+    color: #f87171;
+    background-color: transparent;
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-sm) 0;
+}
 
-            p {
-                background-color: var(--blue);
-                color: white;
-            }
-        }
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: var(--space-md);
+    border-top: 1px solid var(--chat-blue);
+    background-color: var(--bg-item);
+}
 
-        div.error {
-            p {
-                font-size: 14px;
-                text-align: center;
-                color: red;
-            }
-        }
-        
-    }
+.input-area input {
+    flex: 1;
+    border: 1px solid var(--accent-blue);
+    background-color: var(--chat-grey);
+    color: var(--chat-text-light);
+    border-radius: var(--space-xl); /* Pill shape */
+    padding: var(--space-sm) var(--space-lg); /* Match button padding */
+    font-size: 0.95rem;
+    margin-bottom: 0; /* Override default input margin */
+    margin-right: var(--space-sm); /* Space before button */
+}
+.input-area input:focus {
+    border-color: var(--accent-blue-lighter);
+    outline: none;
+}
 
-    .input-area {
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 8px;
-        border-top: 1px solid lightgray;
+.input-area button {
+    height: calc(2 * var(--space-sm) + 2px + 1rem); /* Match input height approx */
+    width: calc(2 * var(--space-sm) + 2px + 1rem);
+    border-radius: 50%;
+    border: none;
+    /* margin-left: var(--space-sm); */ /* Use margin on input instead */
+    background-color: var(--chat-blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0; /* Prevent button shrinking */
+}
 
-        input {
-            height: 40px;
-            flex: 1;
-            border: none;
-            background-color: var(--grey);
-            border-radius: 20px;
-            padding-left: 20px;
-            font-size: 16px;
-        }
+.input-area button img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
 
-        button {
-            height: 40px;
-            width: 40px;
-            border-radius: 100%;
-            border: none;
-            margin-left: 12px;
-            background-color: var(--blue);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
+.input-area button:hover { /* Standard CSS hover */
+    background-color: var(--accent-blue-darker);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
-            img {
-                width: 18px;
-            }
+/* --- Loader --- */
+.loader {
+    width: 40px;
+    opacity: 0.8;
+    aspect-ratio: 4;
+    background: radial-gradient(circle closest-side, var(--accent-blue) 90%, #0000) 0/calc(100%/3) 100% space;
+    clip-path: inset(0 100% 0 0);
+    animation: l1 1.5s steps(4) infinite;
+    margin: var(--space-lg) auto; /* Center loader if needed */
+}
 
-            &:hover {
-                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            }
-        }
-    }
+@keyframes l1 {
+    to { clip-path: inset(0 -34% 0 0); }
 }
 
 
+/* --- Responsiveness --- */
+@media (max-width: 768px) {
+    main {
+        /* Reduce top padding slightly on smaller screens */
+        padding-top: calc(2 * var(--space-md) + 2px + var(--space-md));
+    }
 
-.loader {
-    width: 40px;
-    opacity: 0.4;
-    aspect-ratio: 4;
-    background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
-    clip-path: inset(0 100% 0 0);
-    animation: l1 1.5s steps(4) infinite;
-  }
-  @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
+    .main-container {
+        max-width: none; /* Allow full width */
+        padding-left: var(--space-md); /* Reduce side padding */
+        padding-right: var(--space-md);
+    }
+
+    /* Stack layout columns on smaller screens */
+    .content-layout {
+        flex-direction: column;
+    }
+
+    .sidebar-column {
+        width: 100%; /* Make sidebar full width when stacked */
+    }
+
+    /* Adjust chat position/size if needed */
+     .chat-button {
+         bottom: var(--space-md);
+         right: var(--space-md);
+         height: 50px;
+         width: 50px;
+     }
+     .chat-button img {
+         width: 25px;
+         height: 25px;
+     }
+     .chat-window {
+         width: calc(100% - 2 * var(--space-md)); /* Near full width */
+         bottom: calc(50px + var(--space-md) + var(--space-sm)); /* Position above smaller button */
+         right: var(--space-md);
+         height: 70vh; /* Adjust height relative to viewport */
+     }
+
+    /* Reduce padding on containers */
+     .content-block, .post-item {
+         padding: var(--space-md);
+     }
+
+     /* Adjust button/input padding */
+      .btn-gradient { padding: var(--space-xs) var(--space-md); }
+      input, textarea { padding: var(--space-xs) var(--space-sm); }
+      #Likebtn, #Commentbtn { padding: 5px var(--space-xs); } /* Smaller padding */
+}
