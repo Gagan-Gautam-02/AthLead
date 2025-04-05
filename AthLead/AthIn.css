@@ -52,8 +52,9 @@ header {
     background-color: var(--bg-container);
     color: var(--text-container); /* Use light text for header content */
     border-bottom: 2px solid var(--border-blue);
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-sm) var(--space-lg) ;
     position: fixed;
+    padding-bottom: 25px;
     width: 100%;
     top: 0;
     left: 0;
@@ -145,6 +146,7 @@ nav ul li a i { /* Style nav icons */
 
 /* Main Content Area */
 main {
+    margin-top: 50px;
     flex: 1;
     /* Header height approx: (1.8rem * 1.2) + (2 * 0.75rem padding) + 2px border = ~3.6rem */
     padding-top: calc(3.6rem + var(--space-lg) + 2px); /* Adjusted calculation slightly */
