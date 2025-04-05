@@ -35,7 +35,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     /* color: var(--text-main); Remove direct color if not needed */
     background-color: var(--bg-main); /* Fallback color */
-    background-image: url('WhatsApp Image 2025-03-26 at 23.20.44_6e9c9862.jpg');
+    background-image: url('Bgmain.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -181,7 +181,8 @@ main {
     width: 300px;
     flex-shrink: 0;
     /* Apply content block styles */
-    background-color: var(--bg-container);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
     color: var(--text-container);
     border-radius: var(--space-md);
     padding: var(--space-lg);
@@ -212,7 +213,8 @@ h3 { /* General heading style for sections */
     margin: 0;
 }
 .sidebar-column ul li {
-    background-color: var(--bg-item); /* Item background for list items */
+    background:rgba(0, 0, 0, 0.3);/* Item background for list items */
+    backdrop-filter: blur(10px);
     padding: var(--space-sm) var(--space-md);
     margin-bottom: var(--space-sm);
     border-radius: var(--space-xs);
@@ -225,7 +227,8 @@ h3 { /* General heading style for sections */
 .feed-column > section,
 .feed-column > div#feed-content { /* Target direct children sections/divs */
     /* Apply content block styles */
-    background-color: var(--bg-container);
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
     color: var(--text-container);
     border-radius: var(--space-md);
     padding: var(--space-lg);
@@ -253,7 +256,6 @@ h3 { /* General heading style for sections */
 button#toggle-post { /* Style the toggle button */
      margin-bottom: var(--space-lg);
 }
-
 
 /* Search Results Section */
 .search-results {
@@ -289,7 +291,7 @@ button#toggle-post { /* Style the toggle button */
 }
 
 .post-item { /* Styling for dynamically added posts */
-    background-color: #222A38;
+    background-color:#222A38;
     border-radius: var(--space-md);
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
@@ -313,15 +315,16 @@ button#toggle-post { /* Style the toggle button */
      word-wrap: break-word;
 }
 .post-item p strong a { /* Link on username */
-     color: var(--accent-blue-lighter);
+    color: var(--bg-main);
+
 }
 .post-item p strong a:hover {
-      color: white;
+      color: #93C5FD;
 }
 
 .post-item small { /* Timestamp */
     font-size: 0.8em;
-    color: var(--accent-blue-lighter);
+    color: var(--bg-main);
     opacity: 0.8;
     display: block; /* Put timestamp on its own line */
     margin-top: var(--space-sm);
@@ -581,3 +584,4 @@ footer p {
            font-size: 0.95rem;
        }
 }
+
