@@ -29,7 +29,7 @@ body {
     font-family: 'Montserrat', sans-serif; /* TARGET FONT */
     background-color: var(--bg-main);
     color: var(--text-main);
-    background-image: url('WhatsApp Image 2025-03-26 at 23.20.44_6e9c9862.jpg'); /* TARGET BACKGROUND */
+    background-image: url('BGmain.jpg'); /* TARGET BACKGROUND */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -76,7 +76,7 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: var(--accent-blue); /* TARGET LINK COLOR */
+    color: var(--bg-main); /* TARGET LINK COLOR */
     font-weight: 600;
     transition: color 0.2s ease;
 }
@@ -110,12 +110,13 @@ main {
 
 /* Main profile container */
 .profile {
-    background-color: var(--bg-container); /* TARGET CONTAINER BG */
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
     color: var(--text-container); /* TARGET CONTAINER TEXT */
     border-radius: var(--space-md);
     padding: var(--space-lg);
     margin-bottom: var(--space-xl);
-    border: 2px solid var(--border-blue); /* TARGET BORDER */
+    border: 2px solid var(--bg-main); /* TARGET BORDER */
     /* Removed box-shadow from original profile CSS */
 }
 
@@ -187,7 +188,7 @@ main {
 
 /* Section headings inside profile */
 .profile h3 {
-    color: var(--accent-blue-lighter);
+    color: var(--bg-main);
     border-bottom: 1px solid var(--border-blue);
     padding-bottom: var(--space-xs);
     margin-top: var(--space-xl);
@@ -207,7 +208,7 @@ main {
 .profile-item h4 {
     margin-top: 0;
     margin-bottom: var(--space-sm);
-    color: var(--accent-blue-lighter);
+    color: var(--bg-main);
     font-size: 1.1em;
 }
 
@@ -263,7 +264,7 @@ main {
 }
 
 #edit-profile-form button[type="submit"]:hover {
-    background: linear-gradient(to right, var(--accent-blue-darker), var(--accent-blue-darkest));
+    background: linear-gradient(to right, var(--bg-main), var(--accent-blue-darkest));
 }
 
 /* User's Posts Section */
@@ -278,7 +279,7 @@ main {
     border-radius: var(--space-md);
     padding: var(--space-md); /* Slightly less padding than main items */
     margin-bottom: var(--space-md);
-    border: 1px solid var(--border-blue);
+    border: 1px solid var(--bg-main);
     color: var(--text-container);
 }
 #my-posts .post p {

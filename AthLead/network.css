@@ -35,7 +35,7 @@ body {
     font-family: 'Montserrat', sans-serif; /* TARGET FONT */
     background-color: var(--bg-main); /* Using the variable, but overridden by image */
     color: var(--text-main); /* Default text color for body */
-    background-image: url('WhatsApp Image 2025-03-26 at 23.20.44_6e9c9862.jpg'); /* TARGET BACKGROUND */
+    background-image: url('BGmain.jpg'); /* TARGET BACKGROUND */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -100,6 +100,7 @@ nav ul {
 
 nav ul li {
     margin-left: var(--space-lg); /* Space between nav items */
+    color: var(--bg-main);
 }
 
 nav ul li a {
