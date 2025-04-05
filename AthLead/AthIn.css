@@ -50,7 +50,7 @@ body {
 /* Fixed Header */
 header {
     background-color: var(--bg-container);
-    color: var(--text-container); /* Use light text for header content */
+    color: var(--bg-main); /* Use light text for header content */
     border-bottom: 2px solid var(--border-blue);
     padding: var(--space-sm) var(--space-lg) ;
     position: fixed;
@@ -126,7 +126,7 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-    color: var(--accent-blue);
+    color: var(--bg-main);
     font-weight: 600;
     transition: color 0.2s ease;
     display: flex; /* Align icon and text */
@@ -185,7 +185,7 @@ main {
     color: var(--text-container);
     border-radius: var(--space-md);
     padding: var(--space-lg);
-    border: 2px solid var(--border-blue);
+    border: 2px solid var(--bg-main);
     height: fit-content; /* Make sidebar height based on content */
 }
 
@@ -193,7 +193,7 @@ main {
 
 /* Headings */
 h3 { /* General heading style for sections */
-    color: var(--accent-blue-lighter);
+    color: var(--bg-main);
     border-bottom: 1px solid var(--border-blue);
     padding-bottom: var(--space-xs);
     margin-top: 0; /* Remove default top margin */
@@ -216,7 +216,7 @@ h3 { /* General heading style for sections */
     padding: var(--space-sm) var(--space-md);
     margin-bottom: var(--space-sm);
     border-radius: var(--space-xs);
-    border: 1px solid #374151;
+    border: 1px solid var(--bg-main);
     color: var(--text-container);
     font-size: 0.95em;
 }
@@ -229,7 +229,7 @@ h3 { /* General heading style for sections */
     color: var(--text-container);
     border-radius: var(--space-md);
     padding: var(--space-lg);
-    border: 2px solid var(--border-blue);
+    border: 2px solid var(--bg-main);
 }
 
 /* New Post Section specific styles */
@@ -270,7 +270,7 @@ button#toggle-post { /* Style the toggle button */
      padding: var(--space-md);
      margin-bottom: var(--space-md);
      border-radius: var(--space-xs);
-     border: 1px solid #374151;
+     border: 1px var(--bg-main);
 }
 .search-results .athlete p {
      margin: 0 0 var(--space-xs) 0;
@@ -289,11 +289,11 @@ button#toggle-post { /* Style the toggle button */
 }
 
 .post-item { /* Styling for dynamically added posts */
-    background-color: var(--bg-item);
+    background-color: #222A38;
     border-radius: var(--space-md);
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
-    border: 1px solid var(--border-blue);
+    border: 1px solid var(--bg-main);
     color: var(--text-container);
 }
 .post-item > *:last-child {

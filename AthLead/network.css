@@ -70,20 +70,32 @@ header h1 {
     margin: 0;
     font-size: 1.8rem; /* Adjust size as needed, overrides text-3xl */
     color: var(--accent-blue-lighter); /* Use lighter blue for title */
+    font-weight: 700;
     /* font-weight: bold; /* Already set in HTML */
 }
 /* Ensure icons in H1 use the same color */
 header h1 i {
      margin-right: var(--space-xs); /* Add some space */
 }
+nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg); /* Gap between search and nav links */
+}
 
 
 /* Navigation - Apply theme styles */
 nav ul {
-    list-style: none;
+    /* list-style: none;
     display: flex;
     margin: 0;
+    padding: 0; */
+    list-style: none;
+    display: flex;
+    align-items: center; /* Vertically align nav items */
+    margin: 0;
     padding: 0;
+    gap: var(--space-lg); 
 }
 
 nav ul li {
@@ -91,16 +103,32 @@ nav ul li {
 }
 
 nav ul li a {
+    /* text-decoration: none;
+    color: var(--accent-blue); 
+    font-weight: 600;
+    transition: color 0.2s ease;
+    display: flex; 
+    align-items: center; */
     text-decoration: none;
-    color: var(--accent-blue); /* TARGET LINK COLOR */
+    color: var(--bg-main);
     font-weight: 600;
     transition: color 0.2s ease;
     display: flex; /* Align icon and text */
     align-items: center;
+    gap: var(--space-xs); 
+
 }
-nav ul li a i {
-    margin-right: var(--space-xs); /* Space between icon and text */
+
+/* nav ul li a i {
+    margin-right: var(--space-xs); 
+} */
+
+nav ul li a i { /* Style nav icons */
+    font-size: 1.1rem; /* Adjust icon size */
+    width: 1.2em; /* Ensure consistent icon spacing */
+    text-align: center;
 }
+
 
 nav ul li a:hover {
     color: var(--accent-blue-lighter); /* TARGET LINK HOVER */
