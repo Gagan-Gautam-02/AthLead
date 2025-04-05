@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+.container {
+    width: 100%;
+    margin: auto;
+}
+canvas {
+    max-width: 100%;
+   
+}
+
+.maindis{
+    width: 100%;
+}
+
+.chartsfl1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.analysis-box {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 600px;
+    margin: 20px auto;
+    line-height: 1.6;
+    font-size: 16px;
+}
+.analysis-box h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.analysis-box ul {
+    padding-left: 20px;
+}
+.analysis-box li {
+    margin-bottom: 5px;
+}
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
