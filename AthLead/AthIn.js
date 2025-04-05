@@ -80,7 +80,7 @@ function loadFeed(user) {
                         const userId = userDoc.id;
                         feedContent.innerHTML += `
                             <div class="post-item">
-                                <img src="ProfileImg.png" class="profilepic">
+                                <img src="usericon.png" class="profilepic">
                                 <p><strong><a href="profile.html?uid=${userId}">${userName}</a></strong></p>
                             <br><p>${postData.content}</p><br>
                                 <small>${new Date(postData.timestamp.seconds * 1000).toLocaleString()}</small>
