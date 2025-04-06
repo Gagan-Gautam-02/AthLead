@@ -1,89 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Tracker - AthIn</title>
-    <link rel="stylesheet" href="performance.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-   
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Graph with AI Analysis</title>
+  <link rel="stylesheet" href="graph-style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 </head>
 <body>
+  <header>
+    <h1>Athln</h1>
+    <nav>
+      <a href="AthIn.html">Home</a>
+      <a href="network.html">Network</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
 
-    <section class="chat-window">
-        <button class="close">x close</button>
-        <div class="chat">
-            <div class="model">
-                <p>Hi, how can I help you?</p>
-            </div>
-            
-        </div>
-        <div class="input-area">
-            <input placeholder="Ask me anything..." type="text">
-            <button>
-                <img src="send-icon.png" alt="send">
-            </button>
-        </div>
+  <main>
+    <section class="chart-container">
+      <canvas id="myChart"></canvas>
     </section>
+    <section class="chart-container">
+      <canvas id="myChart2"></canvas>
+    </section>
+    <button onclick="openPopup()" class="ai-btn">Analyze with AI</button>
+  </main>
 
-    <div class="chat-button">
-        <img src="chat-icon.png" alt="start chat">
+  <!-- AI Analysis Panel -->
+  <div id="aiPopup" class="popup">
+    <div class="popup-content">
+      <span onclick="closePopup()" class="close-btn">&times;</span>
+      <h2>AI Analysis</h2>
+      <div id="analysis">
+        <div id="ai-response" class="ai-response">Loading...</div>
+
+        <div class="qa-controls">
+          <h3>Ask AI</h3>
+          <div class="quick-questions">
+            <button onclick="askDefaultQuestion('How consistent is my performance?')">Consistency</button>
+            <button onclick="askDefaultQuestion('How can I improve my batting?')">Batting Tips</button>
+            <button onclick="askDefaultQuestion('Suggest a cricket workout plan.')">Workout Plan</button>
+          </div>
+          <div class="custom-question">
+            <input type="text" id="customInput" placeholder="Type your question..." />
+            <button onclick="askCustomQuestion()">Ask</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script type="importmap">
-        {
-          "imports": {
-            "@google/generative-ai": "https://esm.run/@google/generative-ai"
-          }
-        }
-    </script>
-
-    <script type="module" src="coachb.js"></script>
-    <header>
-        <h1><i class="fas fa-dumbbell"></i> Performance Tracker</h1>
-        <nav>
-            <ul>
-                <li><a href="AthIn.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="network.html"><i class="fas fa-users"></i> Network</a></li>
-                <li><a href="my-profile.html"><i class="fas fa-user"></i> Profile</a></li>
-                <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    
-    <main>
-        <section class="sports-selection">
-            <h2>Select Your Sport</h2>
-            <form id="sports-form">
-                <label for="sports">Choose your sport:</label>
-                <select id="sports" name="sports">
-                    <option value="Cricket">Cricket</option>
-                    <option value="Kabaddi">Kabaddi</option>
-                </select>
-                <button type="submit">Save</button>
-            </form>
-        </section>
-        
-        <section class="performance-tracking">
-            <h2>Your Performance Plan</h2>
-            <button id="start-tracking">Start Tracking</button>
-            <div id="day-plans">
-                <!-- Plans and progress for each day will be displayed here -->
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 AthIn</p>
-    </footer>
-
-
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script>
-    <script src="performance.js"></script>
+  <script src="graph-script.js"></script>
 </body>
 </html>
