@@ -60,7 +60,6 @@ body {
     background: #00bfa5;
   }
   
-  
   .popup {
     position: fixed;
     bottom: 90px;
@@ -91,6 +90,7 @@ body {
   }
   
   .popup-content {
+    position: relative; /* Fix for close button */
     padding: 1.5rem;
     overflow-y: auto;
     flex-grow: 1;
@@ -98,7 +98,7 @@ body {
     line-height: 1.6;
   
     scrollbar-width: thin;
-    scrollbar-color: #666 rgba(0, 0, 0, 0.2); /* Firefox */
+    scrollbar-color: #666 rgba(0, 0, 0, 0.2);
   }
   
   .popup-content::-webkit-scrollbar {
@@ -113,8 +113,6 @@ body {
     background-color: #555;
     border-radius: 10px;
   }
-  
-  
   
   .close-btn {
     position: absolute;
@@ -136,6 +134,123 @@ body {
     margin-top: 1rem;
   }
   
+  .qa-controls {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+  }
   
+  #ai-response {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #333;
+  }
   
+  .quick-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .quick-questions button,
+  .custom-question button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    background-color: #03dac6;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  
+  .quick-questions button:hover,
+  .custom-question button:hover {
+    background-color: #00bfa5;
+  }
+  
+  .quick-questions button:active,
+  .custom-question button:active {
+    transform: scale(0.97);
+  }
+  
+  .custom-question {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .custom-question input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background: #1e1e1e;
+    color: #fff;
+  }
+  
+  /* Responsive adjustment */
+  @media (max-width: 400px) {
+    .popup {
+      width: 95vw;
+      right: 2.5vw;
+      bottom: 80px;
+    }
+  }
+  /* Typewriter Effect Styling */
+.typing {
+    white-space: pre-wrap;
+    border-right: 2px solid #03dac6;
+    animation: blinkCursor 0.8s steps(1) infinite;
+    min-height: 40px; /* Prevents layout shift while typing */
+  }
+  
+  @keyframes blinkCursor {
+    0% {
+      border-color: #03dac6;
+    }
+    50% {
+      border-color: transparent;
+    }
+    100% {
+      border-color: #03dac6;
+    }
+  }
+  /* AI Response Formatting */
+.ai-response h4 {
+    color: #03dac6;
+    font-size: 16px;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .ai-response p {
+    color: #ccc;
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+  
+  .ai-response ul {
+    padding-left: 20px;
+    margin-bottom: 1rem;
+  }
+  
+  .ai-response ul li {
+    color: #aaa;
+    margin-bottom: 6px;
+    list-style: disc;
+  }
+  
+  .ai-response strong {
+    color: #ffffff;
+  }
+  
+  /* Optional: Add a light background for each AI section block */
+  .ai-response-block {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #03dac6;
+  }
   

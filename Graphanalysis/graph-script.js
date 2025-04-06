@@ -8,7 +8,7 @@ const ballsPlayed = [5, 6, 4, 7, 4, 6, 7, 6, 6, 7, 5, 5, 6, 4, 6, 6, 7, 5, 7, 4,
 const runsScored = [9, 10, 7, 11, 6, 10, 11, 9, 9, 9, 8, 7, 7, 4, 7, 6, 7, 4, 6, 3, 5, 5, 4, 3, 4, 4, 3, 3, 3, 4, 3, 3, 2, 2, 2, 2, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 1, 1, 1];
 const labels = ballsPlayed.map((_, i) => `Over ${i + 1}`);
 
-// Chart 1
+// Chart 1 - Balls vs Runs
 new Chart(ctx1, {
   type: 'bar',
   data: {
@@ -35,20 +35,35 @@ new Chart(ctx1, {
   },
   options: {
     responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Balls Played vs Runs Scored per Over',
+        color: '#fff',
+        font: { size: 18 }
+      },
+      legend: {
+        labels: { color: '#ccc' }
+      }
+    },
     interaction: { mode: 'index', intersect: false },
     stacked: false,
     scales: {
       y: {
         beginAtZero: true,
         title: { display: true, text: 'Balls & Runs', color: '#aaa' },
-        ticks: { color: '#aaa' }
+        ticks: { color: '#aaa' },
+        grid: { color: '#444' }
       },
-      x: { ticks: { color: '#aaa' } }
+      x: {
+        ticks: { color: '#aaa' },
+        grid: { color: '#444' }
+      }
     }
   }
 });
 
-// Chart 2
+// Chart 2 - Runs Trend
 new Chart(ctx2, {
   type: 'line',
   data: {
@@ -58,21 +73,112 @@ new Chart(ctx2, {
       data: runsScored,
       fill: false,
       borderColor: '#03dac6',
+      pointBackgroundColor: '#03dac6',
       tension: 0.3
     }]
   },
   options: {
     responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Runs Trend Over Overs',
+        color: '#fff',
+        font: { size: 18 }
+      },
+      legend: {
+        labels: { color: '#ccc' }
+      }
+    },
     scales: {
       y: {
         beginAtZero: true,
         ticks: { color: '#aaa' },
-        title: { display: true, text: 'Runs', color: '#aaa' }
+        title: { display: true, text: 'Runs', color: '#aaa' },
+        grid: { color: '#444' }
       },
-      x: { ticks: { color: '#aaa' } }
+      x: {
+        ticks: { color: '#aaa' },
+        grid: { color: '#444' }
+      }
     }
   }
 });
+
+async function askDefaultQuestion(question) {
+  const fullPrompt = `
+You are an expert cricket coach and fitness advisor. 
+Based on the following data, answer the user's question in clear, structured **Markdown format**.
+
+**Data:**
+- Balls played per over: ${JSON.stringify(ballsPlayed)}
+- Runs scored per over: ${JSON.stringify(runsScored)}
+
+**Instructions:**
+- Use bold for section headings (e.g. **Performance Summary**)
+- Use bullet points or numbered lists where appropriate
+- Keep formatting clean and scannable for athletes
+
+Question: ${question}
+`;
+  await fetchAIResponse(fullPrompt);
+}
+
+async function askCustomQuestion() {
+  const input = document.getElementById("customInput").value.trim();
+  if (!input) return;
+
+  const fullPrompt = `
+You are an expert cricket coach and fitness advisor. 
+Based on the following data, answer the user's question in clear, structured **Markdown format**.
+
+**Data:**
+- Balls played per over: ${JSON.stringify(ballsPlayed)}
+- Runs scored per over: ${JSON.stringify(runsScored)}
+
+instructions:
+-if user asks for a fitness plan, provide a weekly cricket-specific fitness + diet plan.
+- if user asks for injury prevention tips, provide injury prevention tips.
+- if user asks for improvement tips, provide other improvement tips.
+- if user asks for equipment needed, provide equipment needed for training and play.        
+-if user asks for performance patterns, provide performance patterns & consistency.
+- if user asks for batting improvements, provide batting improvements based on balls-to-runs ratio.
+- if user just states a sentence, respond like a coach and not provide any analysis (example prompt: "thank you" or "that was helpful" or "how are you?").
+**User's question:** ${input}
+`;
+  await fetchAIResponse(fullPrompt);
+}
+
+async function fetchAIResponse(prompt) {
+  const aiResponse = document.getElementById("ai-response");
+  aiResponse.innerHTML = "Thinking...";
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: prompt }] }]
+        })
+      }
+    );
+
+    if (!response.ok) throw new Error("API error");
+
+    const result = await response.json();
+    let aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "No meaningful response.";
+
+    // Convert Markdown to HTML using marked.js
+    const htmlContent = marked.parse(aiText);
+    aiResponse.innerHTML = htmlContent;
+
+  } catch (error) {
+    console.error("AI error:", error);
+    aiResponse.innerText = "Failed to load AI response.";
+  }
+}
 
 // Gemini AI Analysis
 async function analyzeGraphData(balls, runs) {
@@ -82,7 +188,8 @@ Analyze the following cricket practice overs for a 20-year-old male athlete weig
 - Runs scored per over: ${JSON.stringify(runs)}
 - This is for one match.
 
-Suggest:
+**Instructions:**
+Provide your response in **Markdown format** with structured analysis:
 1. Performance patterns & consistency
 2. Batting improvements based on balls-to-runs ratio
 3. Weekly cricket-specific fitness + diet plan
@@ -90,33 +197,7 @@ Suggest:
 5. Other improvement tips
 6. Equipment needed for training and play
 `;
-
-  try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{
-          role: "user",
-          parts: [{ text: prompt }]
-        }]
-      })
-    });
-
-    if (!response.ok) throw new Error("API error");
-
-    const result = await response.json();
-    const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "No meaningful response.";
-
-    document.getElementById('analysis').innerHTML = aiText
-      .replace(/\*\*(.*?)\*\*/g, '<h3>$1</h3>')
-      .replace(/\*(.*?)\*/g, '<p>$1</p>')
-      .replace(/\n/g, '<br>');
-
-  } catch (error) {
-    console.error("AI analysis error:", error);
-    document.getElementById('analysis').innerText = "Failed to load AI analysis.";
-  }
+  await fetchAIResponse(prompt);
 }
 
 // Popup controls
@@ -126,6 +207,3 @@ function openPopup() {
 function closePopup() {
   document.getElementById('aiPopup').classList.remove('open');
 }
-
-// Start AI analysis
-analyzeGraphData(ballsPlayed, runsScored);

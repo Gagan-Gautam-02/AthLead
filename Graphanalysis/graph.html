@@ -6,6 +6,8 @@
   <title>Graph with AI Analysis</title>
   <link rel="stylesheet" href="graph-style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 </head>
 <body>
   <header>
@@ -33,7 +35,22 @@
     <div class="popup-content">
       <span onclick="closePopup()" class="close-btn">&times;</span>
       <h2>AI Analysis</h2>
-      <div id="analysis">Loading...</div>
+      <div id="analysis">
+        <div id="ai-response" class="ai-response">Loading...</div>
+
+        <div class="qa-controls">
+          <h3>Ask AI</h3>
+          <div class="quick-questions">
+            <button onclick="askDefaultQuestion('How consistent is my performance?')">Consistency</button>
+            <button onclick="askDefaultQuestion('How can I improve my batting?')">Batting Tips</button>
+            <button onclick="askDefaultQuestion('Suggest a cricket workout plan.')">Workout Plan</button>
+          </div>
+          <div class="custom-question">
+            <input type="text" id="customInput" placeholder="Type your question..." />
+            <button onclick="askCustomQuestion()">Ask</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
